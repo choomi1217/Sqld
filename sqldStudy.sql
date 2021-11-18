@@ -607,13 +607,64 @@ START WITH parent_id IS NULL
 CONNECT BY PRIOR item_id = parent_id
 ORDER BY PARENT_ID;
 
+SELECT  LPAD(' ', 2*(LEVEL-1)) || EMPNO AS EMPNO, ENAME, MGR
+FROM EMP
+START WITH ENAME = 'JONES'
+CONNECT BY MGR = PRIOR EMPNO;
 
+-- CTE (COMMON TABLE EXPRESSION) : WITH절을 이용해 임시테이블을 생성
+WITH W1 (EMPNO, ENAME, MGR, LV) AS
+     (
+          SELECT EMPNO,ENAME,MGR, 1 AS LV
+            FROM EMP
+           WHERE ENAME = 'JONES'
+          UNION ALL
+          SELECT C.EMPNO, C.ENAME, C.MGR, P.LV+1
+          FROM W1 P, EMP C
+          WHERE C.MGR = P.EMPNO
+     )
+SELECT * FROM W1;
 
+--PIVOT : 행을 열로 전환
+-- SELECT *
+--   FROM ( 피벗 대상 쿼리문 )
+--  PIVOT ( 그룹합수(집계컬럼,행) FOR 피벗컬럼(열) IN (피벗컬럼값 AS 별칭 ... )
 
+SELECT * 
+ FROM ( SELECT JOB, DEPTNO, SAL FROM EMP WHERE DEPTNO IN (10,20) )
+PIVOT ( SUM(SAL) FOR DEPTNO IN (10,20) )ORDER BY JOB;
 
+-- Fmmm : 03, 04 이런 식으로 나오는 월을 3, 4 이렇게
+SELECT * 
+  FROM ( 
+         SELECT job , TO_CHAR(hiredate, 'FMMM') || '월' hire_month 
+           FROM emp 
+       ) 
+ PIVOT (
+         COUNT(*) 
+         FOR hire_month IN ('1월', '2월', '3월', '4월', '5월', '6월',
+                            '7월', '8월', '9월', '10월', '11월', '12월') 
+       );
 
+SELECT * 
+ FROM ( SELECT JOB, DEPTNO||'번 부서' AS DEPTNO, SAL FROM EMP WHERE DEPTNO IN (10,20) )
+PIVOT ( SUM(SAL) FOR DEPTNO IN ('10번 부서','20번 부서') )ORDER BY JOB;
 
+SELECT * 
+ FROM ( SELECT JOB, DEPTNO, SAL FROM EMP WHERE DEPTNO IN (10,20) )
+PIVOT ( SUM(SAL)AS SAL FOR DEPTNO IN (10,20) )ORDER BY JOB;
 
+WITH  W1 (JOB, D10_SAL, D20_SAL, D30_SAL) AS
+     (
+          SELECT * 
+            FROM (SELECT JOB, SAL, DEPTNO FROM EMP)
+           PIVOT( SUM(SAL)AS SAL FOR DEPTNO IN (10,20,30)) ORDER BY JOB
+     )
+SELECT JOB, DEPTNO, SAL 
+ FROM W1
+ UNPIVOT (SAL FOR DEPTNO IN(D10_SAL, D20_SAL, D30_SAL))
+WHERE JOB = 'CLERK'
+ORDER BY JOB, DEPTNO;
 
 
 
