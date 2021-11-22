@@ -29,7 +29,7 @@ SELECT LENGTH(SUBSTR(A,2,4))+ LENGTH(LTRIM(B, '0')) AS R1 FROM T1;
 
 SELECT SUBSTR(A,2,4)AS SUB_A FROM T1;
 
---FLOOR(ë‚´ë¦¼) , CEIL(ì˜¬ë¦¼) , TRUNC(ë²„ë¦¼) , ROUND(ë°˜ì˜¬ë¦¼)
+--FLOOR(³»¸²) , CEIL(¿Ã¸²) , TRUNC(¹ö¸²) , ROUND(¹Ý¿Ã¸²)
 SELECT FLOOR(14.5) AS R FROM DUAL 
 UNION
 SELECT CEIL(14.5) AS R FROM DUAL
@@ -39,11 +39,11 @@ UNION ALL
 SELECT ROUND(15.4) AS R FROM DUAL;
 
 -- CREATE PUBLIC DATABASE LINK cho_link CONNECT TO scott IDENTIFIED BY "1217" USING 'TNS';
--- ì˜¤ëŠ˜ ì§‘ì— ê°€ì„œ 'TNS'ì•Œì•„ì˜¤ê¸°
+-- ¿À´Ã Áý¿¡ °¡¼­ 'TNS'¾Ë¾Æ¿À±â
 -- CREATE  PUBLIC DATABASE LINK TESTUSER_LINK 
 -- CONNECT TO R_USER IDENTIFIED BY "RPassword" USING 'TestUser_TNS';
--- TestUser_TNS ëŠ” ì›ê²©ì§€ ì˜¤ë¼í´ ì„œë²„ì— ì ‘ì†í•˜ê¸°ìœ„í•´ì„œ 
--- ë¡œì»¬ ì˜¤ë¼í´ ì„œë²„ì˜ tnsnames.ora íŒŒì¼ì— ì„¤ì •ë˜ì–´ ìžˆëŠ” ì—°ê²°ì •ë³´ ì´ë¦„
+-- TestUser_TNS ´Â ¿ø°ÝÁö ¿À¶óÅ¬ ¼­¹ö¿¡ Á¢¼ÓÇÏ±âÀ§ÇØ¼­ 
+-- ·ÎÄÃ ¿À¶óÅ¬ ¼­¹öÀÇ tnsnames.ora ÆÄÀÏ¿¡ ¼³Á¤µÇ¾î ÀÖ´Â ¿¬°áÁ¤º¸ ÀÌ¸§
 
 SELECT CASE WHEN A = 3 THEN 'A'
             WHEN SUBSTR(B,2,1) = 'B' THEN 'B'
@@ -61,52 +61,52 @@ FROM T1
 GROUP BY A
 ORDER BY A;
 
-CREATE TABLE ì£¼ë¬¸(
-ì£¼ë¬¸ë²ˆí˜¸ VARCHAR2(20)
+CREATE TABLE ÁÖ¹®(
+ÁÖ¹®¹øÈ£ VARCHAR2(20)
 );
 
-SELECT MIN(ì£¼ë¬¸í•©ê³„ê¸ˆì•¡) AS ìµœì €ì£¼ë¬¸ê¸ˆì•¡
+SELECT MIN(ÁÖ¹®ÇÕ°è±Ý¾×) AS ÃÖÀúÁÖ¹®±Ý¾×
 FROM (
-        SELECT A.ê³ ê°ë²ˆí˜¸, A.ì£¼ë¬¸ì¼ìž, SUM(B.ì£¼ë¬¸ê¸ˆì•¡) AS ì£¼ë¬¸í•©ê³„ê¸ˆì•¡
-        FROM ì£¼ë¬¸ A, ì£¼ë¬¸ B
-        WHERE B.ê³ ê°ë²ˆí˜¸ = A.ê³ ê°ë²ˆí˜¸
-        AND B.ì£¼ë¬¸ì¼ìž <= A.ì£¼ë¬¸ì¼ìž
-        GROUP BY A.ê³ ê°ë²ˆí˜¸, A.ì£¼ë¬¸ì¼ìž
-        ORDER BY ê³ ê°ë²ˆí˜¸, ì£¼ë¬¸ì¼ìž
+        SELECT A.°í°´¹øÈ£, A.ÁÖ¹®ÀÏÀÚ, SUM(B.ÁÖ¹®±Ý¾×) AS ÁÖ¹®ÇÕ°è±Ý¾×
+        FROM ÁÖ¹® A, ÁÖ¹® B
+        WHERE B.°í°´¹øÈ£ = A.°í°´¹øÈ£
+        AND B.ÁÖ¹®ÀÏÀÚ <= A.ÁÖ¹®ÀÏÀÚ
+        GROUP BY A.°í°´¹øÈ£, A.ÁÖ¹®ÀÏÀÚ
+        ORDER BY °í°´¹øÈ£, ÁÖ¹®ÀÏÀÚ
     );
     
     
-SELECT ê³ ê°ë²ˆí˜¸, MAX(ì£¼ë¬¸í•©ê³„ê¸ˆì•¡) AS ì´í•©ì£¼ë¬¸ê¸ˆì•¡
+SELECT °í°´¹øÈ£, MAX(ÁÖ¹®ÇÕ°è±Ý¾×) AS ÃÑÇÕÁÖ¹®±Ý¾×
 FROM (
-        SELECT A.ê³ ê°ë²ˆí˜¸, A.ì£¼ë¬¸ì¼ìž, SUM(B.ì£¼ë¬¸ê¸ˆì•¡) AS ì£¼ë¬¸í•©ê³„ê¸ˆì•¡
-        FROM ì£¼ë¬¸ A, ì£¼ë¬¸ B
-        WHERE B.ê³ ê°ë²ˆí˜¸ = A.ê³ ê°ë²ˆí˜¸
-        AND B.ì£¼ë¬¸ì¼ìž <= A.ì£¼ë¬¸ì¼ìž
-        GROUP BY A.ê³ ê°ë²ˆí˜¸, A.ì£¼ë¬¸ì¼ìž
-        ORDER BY ê³ ê°ë²ˆí˜¸, ì£¼ë¬¸ì¼ìž
+        SELECT A.°í°´¹øÈ£, A.ÁÖ¹®ÀÏÀÚ, SUM(B.ÁÖ¹®±Ý¾×) AS ÁÖ¹®ÇÕ°è±Ý¾×
+        FROM ÁÖ¹® A, ÁÖ¹® B
+        WHERE B.°í°´¹øÈ£ = A.°í°´¹øÈ£
+        AND B.ÁÖ¹®ÀÏÀÚ <= A.ÁÖ¹®ÀÏÀÚ
+        GROUP BY A.°í°´¹øÈ£, A.ÁÖ¹®ÀÏÀÚ
+        ORDER BY °í°´¹øÈ£, ÁÖ¹®ÀÏÀÚ
     )
-GROUP BY ê³ ê°ë²ˆí˜¸;
+GROUP BY °í°´¹øÈ£;
 
 
-SELECT A.ê³ ê°ë²ˆí˜¸, A.ì£¼ë¬¸ì¼ìž, SUM(B.ì£¼ë¬¸ê¸ˆì•¡) AS ì£¼ë¬¸í•©ê³„ê¸ˆì•¡
-FROM ì£¼ë¬¸ A, ì£¼ë¬¸ B
-WHERE B.ê³ ê°ë²ˆí˜¸ = A.ê³ ê°ë²ˆí˜¸
-AND B.ì£¼ë¬¸ì¼ìž <= A.ì£¼ë¬¸ì¼ìž
-GROUP BY A.ê³ ê°ë²ˆí˜¸, A.ì£¼ë¬¸ì¼ìž
-ORDER BY ê³ ê°ë²ˆí˜¸, ì£¼ë¬¸ì¼ìž;
+SELECT A.°í°´¹øÈ£, A.ÁÖ¹®ÀÏÀÚ, SUM(B.ÁÖ¹®±Ý¾×) AS ÁÖ¹®ÇÕ°è±Ý¾×
+FROM ÁÖ¹® A, ÁÖ¹® B
+WHERE B.°í°´¹øÈ£ = A.°í°´¹øÈ£
+AND B.ÁÖ¹®ÀÏÀÚ <= A.ÁÖ¹®ÀÏÀÚ
+GROUP BY A.°í°´¹øÈ£, A.ÁÖ¹®ÀÏÀÚ
+ORDER BY °í°´¹øÈ£, ÁÖ¹®ÀÏÀÚ;
         
-SELECT  A.ì£¼ë¬¸ì¼ìž, SUM(B.ì£¼ë¬¸ê¸ˆì•¡) AS ì£¼ë¬¸í•©ê³„ê¸ˆì•¡
-FROM ì£¼ë¬¸ A, ì£¼ë¬¸ B
-WHERE B.ì£¼ë¬¸ì¼ìž <= A.ì£¼ë¬¸ì¼ìž
-GROUP BY  A.ì£¼ë¬¸ì¼ìž
-ORDER BY ì£¼ë¬¸ì¼ìž;
+SELECT  A.ÁÖ¹®ÀÏÀÚ, SUM(B.ÁÖ¹®±Ý¾×) AS ÁÖ¹®ÇÕ°è±Ý¾×
+FROM ÁÖ¹® A, ÁÖ¹® B
+WHERE B.ÁÖ¹®ÀÏÀÚ <= A.ÁÖ¹®ÀÏÀÚ
+GROUP BY  A.ÁÖ¹®ÀÏÀÚ
+ORDER BY ÁÖ¹®ÀÏÀÚ;
 
---(+)ê¸°í˜¸ê°€ ë¶™ì€ ì£¼ë¬¸ í…Œì´ë¸”ì´ ì´ë„ˆ
--- ê¸°í˜¸ê°€ ì•ˆ ë¶™ì€ ê³ ê° í…Œì´ë¸”ì´ ì•„ìš°í„°ê°€ ë˜ì–´ ì£¼ë¬¸ í…Œì´ë¸”ì€ ì¡°ê±´ì— ë§žëŠ”ê²ƒë§Œ
-SELECT SUM(B.ì£¼ë¬¸ê¸ˆì•¡) / COUNT (DISTINCT A.ê³ ê°ë²ˆí˜¸) AS R1
-FROM ê³ ê° A, ì£¼ë¬¸ B
-WHERE B.ê³ ê°ë²ˆí˜¸(+) = A.ê³ ê°ë²ˆí˜¸
-AND B.ì£¼ë¬¸ê¸ˆì•¡(+) > 10000;
+--(+)±âÈ£°¡ ºÙÀº ÁÖ¹® Å×ÀÌºíÀÌ ÀÌ³Ê
+-- ±âÈ£°¡ ¾È ºÙÀº °í°´ Å×ÀÌºíÀÌ ¾Æ¿ìÅÍ°¡ µÇ¾î ÁÖ¹® Å×ÀÌºíÀº Á¶°Ç¿¡ ¸Â´Â°Í¸¸
+SELECT SUM(B.ÁÖ¹®±Ý¾×) / COUNT (DISTINCT A.°í°´¹øÈ£) AS R1
+FROM °í°´ A, ÁÖ¹® B
+WHERE B.°í°´¹øÈ£(+) = A.°í°´¹øÈ£
+AND B.ÁÖ¹®±Ý¾×(+) > 10000;
 
 SELECT COUNT(*) AS R1
 FROM T1 A, T2 B
@@ -132,13 +132,13 @@ WHERE A.A >= 2;
 SELECT SUM(A) AS R1
 FROM T1 A NATURAL JOIN T2 B;
 
--- ì˜¤ë¥˜ O
--- JOINì„ ìœ„í•´ USINGì ˆì— ì‚¬ìš©í•œ ì»¬ëŸ¼ì€ 
--- í…Œì´ë¸”ëª….ì»¬ëŸ¼ì´ ì•„ë‹ˆë¼ ê·¸ëƒ¥ ì»¬ëŸ¼ìœ¼ë¡œ ì™€ì•¼í•¨
+-- ¿À·ù O
+-- JOINÀ» À§ÇØ USINGÀý¿¡ »ç¿ëÇÑ ÄÃ·³Àº 
+-- Å×ÀÌºí¸í.ÄÃ·³ÀÌ ¾Æ´Ï¶ó ±×³É ÄÃ·³À¸·Î ¿Í¾ßÇÔ
 SELECT A.A , B.CC
 FROM T1 A JOIN T2 B
 USING(A);
--- ì˜¤ë¥˜ X
+-- ¿À·ù X
 SELECT A , B.CC
 FROM T1 A JOIN T2 B
 USING(A);
@@ -208,20 +208,20 @@ FROM (
         ORDER BY deptno, RK)
 WHERE RK = 1;
 
---ì¹´í‹°ì‹œì•ˆ ê³±ì´ ë˜ì–´ ë‚˜ì˜¤ëŠ” ê²°ê³¼
+--Ä«Æ¼½Ã¾È °öÀÌ µÇ¾î ³ª¿À´Â °á°ú
 SELECT *
 FROM t1 A CROSS JOIN t2 B;
 
--- ê³µí†µëœ ê²°ê³¼ë§Œ ì¡°íšŒ í•˜ë˜ ê°€ìž¥ ë§Žì€ í–‰ì„ ê°€ì§„ í…Œì´ë¸”ì˜ ì¹´ë””ë„ë¦¬í‹°ë§Œí¼ ë‚˜ì˜´ 
+-- °øÅëµÈ °á°ú¸¸ Á¶È¸ ÇÏµÇ °¡Àå ¸¹Àº ÇàÀ» °¡Áø Å×ÀÌºíÀÇ Ä«µð³Î¸®Æ¼¸¸Å­ ³ª¿È 
 SELECT *
 FROM t1 A INNER JOIN t2 B
 ON B.C1 = A.C1;
 
--- ì¤‘ë³µëœ ë‚´ìš© ì œê±°í•˜ê³  ì¡°ì¸
+-- Áßº¹µÈ ³»¿ë Á¦°ÅÇÏ°í Á¶ÀÎ
 SELECT *
 FROM t1 A NATURAL JOIN t2 B;
 
--- ì™¼ìª½ì˜ í…Œì´ë¸”ì˜ ë°ì´í„°ëŠ” ëª¨ë‘ ì¶œë ¥
+-- ¿ÞÂÊÀÇ Å×ÀÌºíÀÇ µ¥ÀÌÅÍ´Â ¸ðµÎ Ãâ·Â
 SELECT * FROM t1 A LEFT OUTER JOIN t2 B
 USING(C1);
 
@@ -258,13 +258,13 @@ SELECT MAX(LPAD(sal,4,'0') || ename)
 
 SELECT * FROM DEPT WHERE DEPTNO=20;
 
---LAPD, RPAD : ë¬¸ìžì—´ì˜ ê¸¸ì´ë¥¼ ë§žì¶°ì•¼ í•  ë•Œ ê¸¸ì´ë§Œí¼ ê³µë°±ë¬¸ìžë¥¼ ì±„ì›€
---LPAX(ëŒ€ìƒ, ë¬¸ìžì—´ ê¸¸ì´, ì±„ìš¸ ë¬¸ìž)
+--LAPD, RPAD : ¹®ÀÚ¿­ÀÇ ±æÀÌ¸¦ ¸ÂÃç¾ß ÇÒ ¶§ ±æÀÌ¸¸Å­ °ø¹é¹®ÀÚ¸¦ Ã¤¿ò
+--LPAX(´ë»ó, ¹®ÀÚ¿­ ±æÀÌ, Ã¤¿ï ¹®ÀÚ)
 SELECT LPAD(sal,4,'0')
 FROM emp
 ORDER BY empno;
 
--- select ë¬¸ì—ì„œ ë‹¤ì‹œ selectë¥¼ í•˜ëŠ” ìŠ¤ì¹¼ë¼ ì„œë¸Œ ì¿¼ë¦¬ëŠ” ë‹¨ì¼í–‰ë§Œì„ ë°˜í™˜í•´ì•¼í•¨
+-- select ¹®¿¡¼­ ´Ù½Ã select¸¦ ÇÏ´Â ½ºÄ®¶ó ¼­ºê Äõ¸®´Â ´ÜÀÏÇà¸¸À» ¹ÝÈ¯ÇØ¾ßÇÔ
 SELECT ( SELECT T1.C1 FROM T1 WHERE T1.C1 = T2.C1 ) AS T1_C1
  FROM T2
  WHERE T2.C1 = 2;
@@ -273,7 +273,7 @@ SELECT(SELECT MAX(LPAD(sal,4,'0') || ename) FROM emp x WHERE x.deptno = a.deptno
 FROM dept a
 WHERE a.deptno = 20;
 
---ìŠ¤ì¹¼ë¼ ì„œë¸Œì¿¼ë¦¬ë¡œ 2ë²ˆ ì¡°íšŒ
+--½ºÄ®¶ó ¼­ºêÄõ¸®·Î 2¹ø Á¶È¸
 SELECT A.DEPTNO, A.DNAME 
         ,(
             SELECT MAX(X.SAL) 
@@ -287,8 +287,8 @@ SELECT A.DEPTNO, A.DNAME
          )AS COMM
 FROM DEPT A;
 
---ì¸ë¼ì¸ë·°ë¡œ 1ë²ˆ ì¡°íšŒ
--- SALê³¼ COMMì´ ê°€ìž¥ ë§Žì€ ì‚¬ì›ì˜ DEPTë¥¼ ì°¾ëŠ” ì¿¼ë¦°ê°€?
+--ÀÎ¶óÀÎºä·Î 1¹ø Á¶È¸
+-- SAL°ú COMMÀÌ °¡Àå ¸¹Àº »ç¿øÀÇ DEPT¸¦ Ã£´Â Äõ¸°°¡?
 SELECT A.DEPTNO, A.DNAME, B.SAL, B.COMM
   FROM DEPT A
         ,(
@@ -334,8 +334,8 @@ SELECT DISTINCT A.C1
  FROM T1 A
  WHERE EXISTS ( SELECT 1 FROM T2 X WHERE X.C1 = A.C1);
 
---ROLLUPê°™ì€ í†µê³„ í•¨ìˆ˜ëŠ” ìˆœì„œë„ ì¤‘ìš”
---ì•žì— ë‚˜ì˜¨ C2ë¥¼ ì¤‘ì‹¬ìœ¼ë¡œ ë¬¶ê³  ë‹¤ìŒ ì¡°ê±´ì„ ì¤‘ì‹¬ìœ¼ë¡œ ë˜ ë¬¶ìŒ
+--ROLLUP°°Àº Åë°è ÇÔ¼ö´Â ¼ø¼­µµ Áß¿ä
+--¾Õ¿¡ ³ª¿Â C2¸¦ Áß½ÉÀ¸·Î ¹­°í ´ÙÀ½ Á¶°ÇÀ» Áß½ÉÀ¸·Î ¶Ç ¹­À½
 SELECT C1, C2, SUM(C3) AS C3
 FROM T1
 GROUP BY ROLLUP(C2,C1);
@@ -349,7 +349,7 @@ SELECT C1, C2, SUM(C3) AS C3
 GROUP BY CUBE(C1,C2); 
 
 
--- CUBEì™€ ROLLUP ì—†ì´ í•  ìˆ˜ ìžˆëŠ” í†µê³„
+-- CUBE¿Í ROLLUP ¾øÀÌ ÇÒ ¼ö ÀÖ´Â Åë°è
 SELECT C1, C2, SUM(C3) AS C3
 FROM T1
 GROUP BY GROUPING SETS ((C1,C2),C1);
@@ -358,7 +358,7 @@ SELECT C1, C2, SUM(C3) AS C3
 FROM T1
 GROUP BY GROUPING SETS (C1,C2);
 
--- JOB ì†Œê³„ì™€ DEPTNO ì†Œê³„ë¥¼ í•©ì¹œ ì¿¼ë¦¬
+-- JOB ¼Ò°è¿Í DEPTNO ¼Ò°è¸¦ ÇÕÄ£ Äõ¸®
 SELECT job, deptno, COUNT(*) cnt
   FROM EMP
  GROUP BY GROUPING SETS(job, deptno)
@@ -376,7 +376,7 @@ GROUP BY deptno,job;
 SELECT C1, C2
 FROM T1 NATURAL JOIN T2;
 
---ê·¸ëƒ¥ ì¡°ì¸ì„ í•˜ë©´ RIGHT OUTER JOINê³¼ ë‹¤ë¥¼ê²Œ ì—†ìŒ
+--±×³É Á¶ÀÎÀ» ÇÏ¸é RIGHT OUTER JOIN°ú ´Ù¸¦°Ô ¾øÀ½
 SELECT *
 FROM  T1 JOIN T2
 USING(C1);
@@ -389,12 +389,12 @@ SELECT *
 FROM  T1 LEFT OUTER JOIN T2
 USING(C1);
 
--- GROUPING SETS ì¼ë°˜ì ì¸ ì‚¬ìš©
+-- GROUPING SETS ÀÏ¹ÝÀûÀÎ »ç¿ë
 SELECT JOB, DEPTNO , COUNT(*)
 FROM EMP 
 GROUP BY GROUPING SETS((JOB,DEPTNO))
 ORDER BY JOB, DEPTNO;
--- ê´„í˜¸ ì•ˆì— ì•„ë¬´ê²ƒë„ ì•ˆ ë„£ìœ¼ë©´ ì´í•©ì´ ë½‘ì•„ì§ ã…‡0ã…‡
+-- °ýÈ£ ¾È¿¡ ¾Æ¹«°Íµµ ¾È ³ÖÀ¸¸é ÃÑÇÕÀÌ »Ì¾ÆÁü ¤·0¤·
 SELECT JOB, DEPTNO , COUNT(*)
 FROM EMP 
 GROUP BY GROUPING SETS((JOB,DEPTNO),())
@@ -410,27 +410,27 @@ FROM EMP
 GROUP BY GROUPING SETS((JOB,MGR),(JOB,DEPTNO),())
 ORDER BY JOB, DEPTNO;
 
-SELECT DECODE(GROUPING(JOB),1,'í•©ê³„',JOB) JOB, 
+SELECT DECODE(GROUPING(JOB),1,'ÇÕ°è',JOB) JOB, 
        DEPTNO, 
        COUNT(*) CNT
  FROM EMP
 GROUP BY GROUPING SETS((JOB,DEPTNO),());
 
---DECODEì— ëŒ€í•´ ì¢€ ë” ìžì„¸ížˆ ì•Œì•„ë³´ìž
-SELECT ename AS ì§ì›ì„±ëª…, 
-       deptno AS ë¶€ì„œë²ˆí˜¸,
+--DECODE¿¡ ´ëÇØ Á» ´õ ÀÚ¼¼È÷ ¾Ë¾Æº¸ÀÚ
+SELECT ename AS Á÷¿ø¼º¸í, 
+       deptno AS ºÎ¼­¹øÈ£,
        decode(deptno, 10, '10', 'X') as DECODE  
 FROM emp;
---DECODEì•ˆì— DECODEê°€ ë“¤ì–´ê°
---DEPTNOê°€ 20ì´ë©´ DECODEì•ˆìœ¼ë¡œ ë‹¤ì‹œ ë“¤ì–´ê°€ê±°ë‚˜ í•˜ëŠ” í˜•íƒœ
+--DECODE¾È¿¡ DECODE°¡ µé¾î°¨
+--DEPTNO°¡ 20ÀÌ¸é DECODE¾ÈÀ¸·Î ´Ù½Ã µé¾î°¡°Å³ª ÇÏ´Â ÇüÅÂ
 select ename,
        deptno,
-       decode(deptno, 20, decode(ename, 'SMITH', 'ê¸ˆì£¼ë‹¹ì§', 'ë‹¤ìŒì£¼ ë‹¹ì§'), null) as ë¹„ê³ 
+       decode(deptno, 20, decode(ename, 'SMITH', '±ÝÁÖ´çÁ÷', '´ÙÀ½ÁÖ ´çÁ÷'), null) as ºñ°í
 from emp
 order by deptno;
 
--- ê·¸ë£¹í•¨ìˆ˜ì—ì„œ ê´„í˜¸ì—´ì„ ì¡°í•©ì—´ì´ë¼ê³  í•¨ (C1,C2), í•˜ë‚˜ì˜ ë‹¨ìœ„ë¡œ ë³¸ë‹¤ 
--- ROLLUPì€ ë³´í†µ 2ê°œì˜ ë‹¨ìœ„ë¡œ ë¬¶ìœ¼ë©´ 3ë ˆë²¨ì´ ë˜ì–´ ë‚˜ì˜¤ëŠ”ë° ê´„í˜¸ì—´ë¡œ ë¬¶ìœ¼ë©´ í•˜ë‚˜ë¡œ ì·¨ê¸‰
+-- ±×·ìÇÔ¼ö¿¡¼­ °ýÈ£¿­À» Á¶ÇÕ¿­ÀÌ¶ó°í ÇÔ (C1,C2), ÇÏ³ªÀÇ ´ÜÀ§·Î º»´Ù 
+-- ROLLUPÀº º¸Åë 2°³ÀÇ ´ÜÀ§·Î ¹­À¸¸é 3·¹º§ÀÌ µÇ¾î ³ª¿À´Âµ¥ °ýÈ£¿­·Î ¹­À¸¸é ÇÏ³ª·Î Ãë±Þ
 SELECT C1, C2, SUM(C3) AS C3
 FROM T1
 GROUP BY ROLLUP((C1,C2));
@@ -439,16 +439,16 @@ SELECT C1, C2, SUM(C3) AS C3
 FROM T1
 GROUP BY ROLLUP(C1,C2);
 
--- RANKí•¨ìˆ˜ëŠ” ì´ì–´ì§„ OVERì ˆì— ORDER BYí•œ ê±¸ ìˆœìœ„ë¥¼ ë§¤ê²¨ì„œ ëŒë ¤ì¤Œ
--- ì¤‘ë³µìˆœìœ„ê°€ 4, 4 ì´ë ‡ê²Œ ë˜ë©´ ë‹¤ìŒ ìˆœìœ„ëŠ” 6ìœ¼ë¡œ ì¹œë‹¤.
+-- RANKÇÔ¼ö´Â ÀÌ¾îÁø OVERÀý¿¡ ORDER BYÇÑ °É ¼øÀ§¸¦ ¸Å°Ü¼­ µ¹·ÁÁÜ
+-- Áßº¹¼øÀ§°¡ 4, 4 ÀÌ·¸°Ô µÇ¸é ´ÙÀ½ ¼øÀ§´Â 6À¸·Î Ä£´Ù.
 SELECT EMPNO, ENAME, SAL, RANK () OVER(ORDER BY SAL ASC) AS C1
 FROM EMP;
 
--- DENSE_RANKëŠ” ì¤‘ë¶ ìˆœìœ„ ë‹¤ìŒ ìˆ«ìžë¥¼ ì´ì–´ì„œ 4, 4 ë¼ë©´ ë‹¤ìŒ ìˆœìœ„ëŠ” 5ë‹¤.
+-- DENSE_RANK´Â ÁßºÏ ¼øÀ§ ´ÙÀ½ ¼ýÀÚ¸¦ ÀÌ¾î¼­ 4, 4 ¶ó¸é ´ÙÀ½ ¼øÀ§´Â 5´Ù.
 SELECT EMPNO, ENAME, SAL, DENSE_RANK () OVER(ORDER BY SAL ASC) AS C1
 FROM EMP;
 
--- ROW_NUMBERë„ ìˆœì„œë§¤ê²¨ì§€ê¸´ í•¨
+-- ROW_NUMBERµµ ¼ø¼­¸Å°ÜÁö±ä ÇÔ
 SELECT EMPNO, ENAME, SAL, ROW_NUMBER () OVER(ORDER BY SAL ASC) AS C1
 FROM EMP;
 
@@ -456,7 +456,7 @@ SELECT EMPNO, ENAME, SAL, SUM(SAL) OVER (ORDER BY SAL) AS C1
 FROM EMP
 WHERE DEPTNO = 20;
 
---ìœˆë„ìš° í•¨ìˆ˜ë¥¼ ì ìš©í•  ë•Œ, ì¡°íšŒëœ ëª¨ë“  ë°ì´í„°ê°€ ì•„ë‹Œ íŠ¹ì • í–‰ì˜ ë²”ìœ„ë¥¼ ì§€ì •
+--À©µµ¿ì ÇÔ¼ö¸¦ Àû¿ëÇÒ ¶§, Á¶È¸µÈ ¸ðµç µ¥ÀÌÅÍ°¡ ¾Æ´Ñ Æ¯Á¤ ÇàÀÇ ¹üÀ§¸¦ ÁöÁ¤
 SELECT EMPNO, ENAME, SAL
        , SUM(SAL) OVER (ORDER BY SAL) AS C1
        , SUM(SAL) OVER (ORDER BY SAL RANGE UNBOUNDED PRECEDING) AS C2
@@ -476,7 +476,7 @@ SELECT dept, id, salary,
        ) D;
 
 -- RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
--- RANGEëŠ” ORDER BY ì»¬ëŸ¼ìœ¼ë¡œ ì‚¬ìš©ëœ id ê°’ì´ ê°™ì€ ì»¬ëŸ¼ì„ ë¬¶ì–´ì„œ ì—°ì‚°
+-- RANGE´Â ORDER BY ÄÃ·³À¸·Î »ç¿ëµÈ id °ªÀÌ °°Àº ÄÃ·³À» ¹­¾î¼­ ¿¬»ê
 SELECT dept, id, salary,
        SUM(salary) OVER 
        (PARTITION BY dept ORDER BY id RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) col2
@@ -488,29 +488,29 @@ SELECT dept, id, salary,
           SELECT 20 dept, 103 id, 17000 salary FROM DUAL 
        ) D;
 
--- UNBOUNDED PRECEDING : ìœˆë„ìš° ì‹œìž‘ ìœ„ì¹˜ê°€ ì²« ë²ˆì§¸ ë¡œìš°ìž„ì„ ì˜ë¯¸
--- UNBOUNDED FOLLOWING : ìœˆë„ìš° ë§ˆì§€ë§‰ ìœ„ì¹˜ê°€ ë§ˆì§€ë§‰ ë¡œìš°ìž„ì„ ì˜ë¯¸
--- BETWEEN ~ AND : ìœˆë„ìš°ì˜ ì‹œìž‘ê³¼ ë ìœ„ì¹˜ë¥¼ ì§€ì •
--- [ROWìˆ˜] PRECEDING : ìœˆë„ìš° ì‹œìž‘ ìœ„ì¹˜ê°€ ROWìˆ˜ë§Œí¼ ì´ì „ì´ ì‹œìž‘ ë¡œìš°ìž„ì„ ì˜ë¯¸
--- [ROWìˆ˜] FOLLOWING : ìœˆë„ìš° ë§ˆì§€ë§‰ ìœ„ì¹˜ê°€ ROWìˆ˜ë§Œí¼ ë‹¤ìŒì´ ë§ˆì§€ë§‰ ë¡œìš°ìž„ì„ ì˜ë¯¸
--- CURRENT ROW : í˜„ìž¬ ë¡œìš°ê¹Œì§€ë¥¼ ì˜ë¯¸
+-- UNBOUNDED PRECEDING : À©µµ¿ì ½ÃÀÛ À§Ä¡°¡ Ã¹ ¹øÂ° ·Î¿ìÀÓÀ» ÀÇ¹Ì
+-- UNBOUNDED FOLLOWING : À©µµ¿ì ¸¶Áö¸· À§Ä¡°¡ ¸¶Áö¸· ·Î¿ìÀÓÀ» ÀÇ¹Ì
+-- BETWEEN ~ AND : À©µµ¿ìÀÇ ½ÃÀÛ°ú ³¡ À§Ä¡¸¦ ÁöÁ¤
+-- [ROW¼ö] PRECEDING : À©µµ¿ì ½ÃÀÛ À§Ä¡°¡ ROW¼ö¸¸Å­ ÀÌÀüÀÌ ½ÃÀÛ ·Î¿ìÀÓÀ» ÀÇ¹Ì
+-- [ROW¼ö] FOLLOWING : À©µµ¿ì ¸¶Áö¸· À§Ä¡°¡ ROW¼ö¸¸Å­ ´ÙÀ½ÀÌ ¸¶Áö¸· ·Î¿ìÀÓÀ» ÀÇ¹Ì
+-- CURRENT ROW : ÇöÀç ·Î¿ì±îÁö¸¦ ÀÇ¹Ì
 -- SAL RANGE BETWEEN 50 PRECEDING AND 100 FOLLOWING
--- : SALê°’ì—ì„œ 50ì„ ë¹¼ê³  100ì„ ë”í•œ ê°’ì´ ìœˆë„ìš°ê°€ ë¨
--- ì¦‰, FORDëŠ” SALì´ 3000ì´ë‹ˆê¹Œ SALì´ 2950 ~ 3100 ì¸ ì»¬ëŸ¼ì„ ì¹´ìš´íŠ¸í•¨
--- , JONES, SCOTT, FORDê°€ ì¹´ìš´íŠ¸ ë˜ì–´ 3
+-- : SAL°ª¿¡¼­ 50À» »©°í 100À» ´õÇÑ °ªÀÌ À©µµ¿ì°¡ µÊ
+-- Áï, FORD´Â SALÀÌ 3000ÀÌ´Ï±î SALÀÌ 2950 ~ 3100 ÀÎ ÄÃ·³À» Ä«¿îÆ®ÇÔ
+-- , JONES, SCOTT, FORD°¡ Ä«¿îÆ® µÇ¾î 3
 SELECT EMPNO, ENAME, SAL
 ,COUNT(*)OVER( ORDER BY SAL RANGE BETWEEN 50 PRECEDING AND 100 FOLLOWING) AS C1
 FROM EMP 
 WHERE DEPTNO = 20;
 
--- ì´ë ‡ê²Œ ì¡°íšŒí•˜ë©´ SALê²¹ì¹˜ëŠ” ì• ê°€ ì•ˆ ë‚˜ì˜´
+-- ÀÌ·¸°Ô Á¶È¸ÇÏ¸é SAL°ãÄ¡´Â ¾Ö°¡ ¾È ³ª¿È
 SELECT EMPNO, ENAME, SAL, ROWNUM AS RN
 FROM EMP
 WHERE DEPTNO IN (20,30)
 AND ROWNUM <= 3
 ORDER BY SAL DESC;
 
--- ê²¹ì¹˜ëŠ” ì• ê¹Œì§€ ì¡°íšŒ í•˜ë ¤ë©´
+-- °ãÄ¡´Â ¾Ö±îÁö Á¶È¸ ÇÏ·Á¸é
 SELECT A.*
       ,ROWNUM AS RN
  FROM (SELECT EMPNO, ENAME, SAL
@@ -521,7 +521,7 @@ SELECT A.*
 
 
 -- Top-N Query
--- ìƒìœ„ Nê°œì˜ ë°ì´í„°ë¥¼ ë³´ì—¬ì£¼ê¸° ìœ„í•´ Top-N Query
+-- »óÀ§ N°³ÀÇ µ¥ÀÌÅÍ¸¦ º¸¿©ÁÖ±â À§ÇØ Top-N Query
 
 --TOP (4) MSSQL
 SELECT TOP(4) WITH TIES * 
@@ -538,7 +538,7 @@ FROM
     ) A
 WHERE ROWNUM <= 4;
 
--- íŽ˜ì´ì§•ì¿¼ë¦¬ 
+-- ÆäÀÌÂ¡Äõ¸® 
 SELECT *
 FROM(
         SELECT A.*, ROWNUM AS RN
@@ -551,7 +551,7 @@ FROM(
     )
 WHERE RN >= 6;
 
--- ROW LIMITING : 11Gì¸ ë²„ì „ì—ì„  ì•ˆ ë˜ê³  12Cë¶€í„° ê°€ëŠ¥
+-- ROW LIMITING : 11GÀÎ ¹öÀü¿¡¼± ¾È µÇ°í 12CºÎÅÍ °¡´É
 
 SELECT EMPNO, ENAME, SAL
 FROM EMP
@@ -564,27 +564,27 @@ ORDER BY SAL DESC OFFSET 3 ROWS;
 
 select * from v$version;
 
---ê³„ì¸µí˜• ì¿¼ë¦¬
+--°èÃþÇü Äõ¸®
 CREATE TABLE BOM (
-     ITEM_ID INTEGER NOT NULL, -- í’ˆëª©ì‹ë³„ìž
-     PARENT_ID INTEGER, -- ìƒìœ„í’ˆëª© ì‹ë³„ìž
-     ITEM_NAME VARCHAR2(20) NOT NULL, -- í’ˆëª©ì´ë¦„
-     ITEM_QTY INTEGER, -- í’ˆëª© ê°œìˆ˜
+     ITEM_ID INTEGER NOT NULL, -- Ç°¸ñ½Äº°ÀÚ
+     PARENT_ID INTEGER, -- »óÀ§Ç°¸ñ ½Äº°ÀÚ
+     ITEM_NAME VARCHAR2(20) NOT NULL, -- Ç°¸ñÀÌ¸§
+     ITEM_QTY INTEGER, -- Ç°¸ñ °³¼ö
      PRIMARY KEY (ITEM_ID)
 );
 
-INSERT INTO BOM VALUES ( 1001, NULL, 'ì»´í“¨í„°', 1);
-INSERT INTO BOM VALUES ( 1002, 1001, 'ë³¸ì²´', 1);
-INSERT INTO BOM VALUES ( 1003, 1001, 'ëª¨ë‹ˆí„°', 1);
-INSERT INTO BOM VALUES ( 1004, 1001, 'í”„ë¦°í„°', 1);
+INSERT INTO BOM VALUES ( 1001, NULL, 'ÄÄÇ»ÅÍ', 1);
+INSERT INTO BOM VALUES ( 1002, 1001, 'º»Ã¼', 1);
+INSERT INTO BOM VALUES ( 1003, 1001, '¸ð´ÏÅÍ', 1);
+INSERT INTO BOM VALUES ( 1004, 1001, 'ÇÁ¸°ÅÍ', 1);
 
-INSERT INTO BOM VALUES ( 1005, 1002, 'ë©”ì¸ë³´ë“œ', 1);
-INSERT INTO BOM VALUES ( 1006, 1002, 'ëžœì¹´ë“œ', 1);
-INSERT INTO BOM VALUES ( 1007, 1002, 'íŒŒì›Œì„œí”Œë¼ì´', 1);
+INSERT INTO BOM VALUES ( 1005, 1002, '¸ÞÀÎº¸µå', 1);
+INSERT INTO BOM VALUES ( 1006, 1002, '·£Ä«µå', 1);
+INSERT INTO BOM VALUES ( 1007, 1002, 'ÆÄ¿ö¼­ÇÃ¶óÀÌ', 1);
 INSERT INTO BOM VALUES ( 1008, 1005, 'CPU', 1);
 INSERT INTO BOM VALUES ( 1009, 1005, 'RAM', 1);
-INSERT INTO BOM VALUES ( 1010, 1005, 'ê·¸ëž˜í”½ì¹´ë“œ', 1);
-INSERT INTO BOM VALUES ( 1011, 1005, 'ê¸°íƒ€ìž¥ì¹˜', 1);
+INSERT INTO BOM VALUES ( 1010, 1005, '±×·¡ÇÈÄ«µå', 1);
+INSERT INTO BOM VALUES ( 1011, 1005, '±âÅ¸ÀåÄ¡', 1);
 
 SELECT bom1.item_name,
         bom1.item_id,
@@ -612,7 +612,7 @@ FROM EMP
 START WITH ENAME = 'JONES'
 CONNECT BY MGR = PRIOR EMPNO;
 
--- CTE (COMMON TABLE EXPRESSION) : WITHì ˆì„ ì´ìš©í•´ ìž„ì‹œí…Œì´ë¸”ì„ ìƒì„±
+-- CTE (COMMON TABLE EXPRESSION) : WITHÀýÀ» ÀÌ¿ëÇØ ÀÓ½ÃÅ×ÀÌºíÀ» »ý¼º
 WITH W1 (EMPNO, ENAME, MGR, LV) AS
      (
           SELECT EMPNO,ENAME,MGR, 1 AS LV
@@ -625,30 +625,30 @@ WITH W1 (EMPNO, ENAME, MGR, LV) AS
      )
 SELECT * FROM W1;
 
---PIVOT : í–‰ì„ ì—´ë¡œ ì „í™˜
+--PIVOT : ÇàÀ» ¿­·Î ÀüÈ¯
 -- SELECT *
---   FROM ( í”¼ë²— ëŒ€ìƒ ì¿¼ë¦¬ë¬¸ )
---  PIVOT ( ê·¸ë£¹í•©ìˆ˜(ì§‘ê³„ì»¬ëŸ¼,í–‰) FOR í”¼ë²—ì»¬ëŸ¼(ì—´) IN (í”¼ë²—ì»¬ëŸ¼ê°’ AS ë³„ì¹­ ... )
+--   FROM ( ÇÇ¹þ ´ë»ó Äõ¸®¹® )
+--  PIVOT ( ±×·ìÇÕ¼ö(Áý°èÄÃ·³,Çà) FOR ÇÇ¹þÄÃ·³(¿­) IN (ÇÇ¹þÄÃ·³°ª AS º°Äª ... )
 
 SELECT * 
  FROM ( SELECT JOB, DEPTNO, SAL FROM EMP WHERE DEPTNO IN (10,20) )
 PIVOT ( SUM(SAL) FOR DEPTNO IN (10,20) )ORDER BY JOB;
 
--- Fmmm : 03, 04 ì´ëŸ° ì‹ìœ¼ë¡œ ë‚˜ì˜¤ëŠ” ì›”ì„ 3, 4 ì´ë ‡ê²Œ
+-- Fmmm : 03, 04 ÀÌ·± ½ÄÀ¸·Î ³ª¿À´Â ¿ùÀ» 3, 4 ÀÌ·¸°Ô
 SELECT * 
   FROM ( 
-         SELECT job , TO_CHAR(hiredate, 'FMMM') || 'ì›”' hire_month 
+         SELECT job , TO_CHAR(hiredate, 'FMMM') || '¿ù' hire_month 
            FROM emp 
        ) 
  PIVOT (
          COUNT(*) 
-         FOR hire_month IN ('1ì›”', '2ì›”', '3ì›”', '4ì›”', '5ì›”', '6ì›”',
-                            '7ì›”', '8ì›”', '9ì›”', '10ì›”', '11ì›”', '12ì›”') 
+         FOR hire_month IN ('1¿ù', '2¿ù', '3¿ù', '4¿ù', '5¿ù', '6¿ù',
+                            '7¿ù', '8¿ù', '9¿ù', '10¿ù', '11¿ù', '12¿ù') 
        );
 
 SELECT * 
- FROM ( SELECT JOB, DEPTNO||'ë²ˆ ë¶€ì„œ' AS DEPTNO, SAL FROM EMP WHERE DEPTNO IN (10,20) )
-PIVOT ( SUM(SAL) FOR DEPTNO IN ('10ë²ˆ ë¶€ì„œ','20ë²ˆ ë¶€ì„œ') )ORDER BY JOB;
+ FROM ( SELECT JOB, DEPTNO||'¹ø ºÎ¼­' AS DEPTNO, SAL FROM EMP WHERE DEPTNO IN (10,20) )
+PIVOT ( SUM(SAL) FOR DEPTNO IN ('10¹ø ºÎ¼­','20¹ø ºÎ¼­') )ORDER BY JOB;
 
 SELECT * 
  FROM ( SELECT JOB, DEPTNO, SAL FROM EMP WHERE DEPTNO IN (10,20) )
@@ -685,7 +685,7 @@ SELECT JOB, DEPTNO, SAL
  UNPIVOT (SAL FOR DEPTNO IN(D10_SAL, D20_SAL, D30_SAL))
 ORDER BY JOB, DEPTNO;
 
--- ORACLEì˜ ì •ê·œí‘œí˜„ì‹ ì‚¬ìš©ë²•
+-- ORACLEÀÇ Á¤±ÔÇ¥Çö½Ä »ç¿ë¹ý
 SELECT REGEXP_SUBSTR('ABC', 'A.+') AS C1
        , REGEXP_SUBSTR( 'ABC', 'A.+?') AS C2
  FROM DUAL;
@@ -721,7 +721,7 @@ SELECT *
       )
  WHERE ROWNUM <= 3;
 
---JOINì„ ë¨¼ì € í•˜ëŠ”ê°€ ROWNUMì„ ë¨¼ì € í•˜ëŠ”ê°€
+--JOINÀ» ¸ÕÀú ÇÏ´Â°¡ ROWNUMÀ» ¸ÕÀú ÇÏ´Â°¡
 SELECT A.*, B.DNAME
   FROM 
       (
@@ -791,7 +791,7 @@ where BDAY;
 SELECT A.ALIASS
 FROM (SELECT ENAME, DEPTNO AS ALIASS FROM EMP WHERE DEPTNO ='10' )A, DEPT B;
 
--- ì—¬ê¸°ì„œë¶€í„´ DML
+-- ¿©±â¼­ºÎÅÏ DML
 
 CREATE TABLE CT1 (
 C1 NUMBER,
@@ -809,5 +809,3 @@ UPDATE T1 A
 DELETE FROM T1 WHERE C1 NOT IN ( SELECT C2 FROM T2 );
 
 COMMIT;
-
-
