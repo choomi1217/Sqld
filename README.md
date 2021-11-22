@@ -1,4 +1,4 @@
-# ????
+# <span style="color:#FFBDF5"> 11월의 기록 </span>
 
 매일 헷갈리는 나를 위한 git 사용법 <br>
 https://rogerdudler.github.io/git-guide/index.ko.html
@@ -71,6 +71,7 @@ applicatiob 안에는 원래 activity도 intent-filter도 없었는데 이 둘�
 이 undefined에 대한 처리가 부족한 것 같습니다.. <br/>
 어떻게 해야 이런 예외상황에 잘 대처할 수 있는지.. 잘 모르겠습니다,,
 
+<span style="color:#FFBDF5">
 오후근무시간중 마주친 이상한일 <BR/>
 데이터가 들어와서 가는 테이블은 한 곳인데<BR/>
 왜? 웹으로 출력할 땐 테스트한 데이터가 안 보이는거지? 어떻게 한걸까요?
@@ -80,6 +81,8 @@ applicatiob 안에는 원래 activity도 intent-filter도 없었는데 이 둘�
 이렇게 오면서 테스트서버와 테스트서버가 아닌걸 판가름하고
 
 DB서버를 다르게 태워 보내는 방식인건가
+
+</span>
 
 ---
 
@@ -136,7 +139,7 @@ SQLD 공부중 정규표현식이 나와서,,
 아직도 정규표현식을 잘 모르겠습니다.. **화이팅**
 
 
-## 우연히 읽은 한 기사 내용
+## <span style="color:#FFBDF5"> 우연히 읽은 한 기사 내용 </span>
 
 아래는 2016년 DAP,SQLP,ADP 데이터 관련 자격증을 연거푸 딴 **김창훈** 이란 분의 인터뷰 내용이다
 
@@ -151,7 +154,7 @@ DAP부터 준비했는데, 데이터 모델링 중심의 시험이라는 걸 그
 
 > 제가 자격증 공부를 통해 얻으려고 했던 그 이상을 얻으려면 공부를 훨씬 더 많이 해야합니다.
 
-## 합격 수준의 공부로는 도움이 되지 않는다 그 이상의 공부를 하자!
+##  <span style="color:#FFBDF5"> 합격 수준의 공부로는 도움이 되지 않는다 그 이상의 공부를 하자! <span>
 
 
 오늘 집에 가서 해야 할 일
@@ -159,6 +162,7 @@ DAP부터 준비했는데, 데이터 모델링 중심의 시험이라는 걸 그
 2. 밥 꼭 챙겨먹고 엄마한테 연락드리기
 
 
+<<<<<<< HEAD
 ---
 
 > ## 2021-11-20 (토)
@@ -181,6 +185,62 @@ UPDATE 쿼리를 보던 중 MERGE문이 나왔습니다.
 
 
 
+=======
+
+---
+
+> ## 2021-11-22 (월)
+
+<br/>
+
+항상 요청으로 들어오는 데이터를 ``` map.get(key) ``` 로 했었는데, 조대리님의 코드를 보다가 ``` ServletRequestUtils.getStringParameter ``` 라는 걸 발견했습니다!
+
+
+사용법
+``` java
+String param = ServletRequestUtils.getStringParameter(request, "paramName", "defaultValue");
+```
+이걸 사용하면 널처리도 되는것 같아요! 😋🍯꿀~
+
+계속 script로 ModelAndView를 가져오는데 에러가 납니다..
+왜 그럴까?
+
+
+자바스크립트로 동적으로 온클릭을 줄 때 항상 고민하던 부분을 해결했습니다.
+
+``` javascript
+var str_tag = "";
+str_tag = "<td onclick='functionA(\'a\')' >"+result.id+"</td>"
+```
+
+저런 식으로 문자열 안에 함수 호출 안에 매개변수가 들어가야 할 때, 어떻게하지 어떻게하지 고민했었는데.. 
+``` \' 매개변수 \' ``` 백슬래쉬 따옴표로 해결하면 됩니다~!
+
+
+```javascript
+var str_tag = "";
+str_tag = "<td onclick='functionA(\'a\',\'b\',"+result.id+")' >"+result.id+"</td>"
+```
+매개변수가 여러개일 때도 마찬가지입니다!
+
+ヽ（≧□≦）ノ
+
+## 지금까지 헤매던 버그들을 해결했습니다!
+
+JSP 메인페이지에서 버튼을 누르고 들어오면 CONTROLLER를 타고 JSP를 ModelAndView로 보여주는데 <br/>
+ModelAndView가 사실 내부적으론 String으로 보내주는거였나 봅니다! <br/>
+jsp를 가져와서 전달하면 문자의 형태라 팝업창으로 뿌리는거나 다른 형태로 사용하는게 가능합니다!
+
+
+오늘 버그는 잡았는데 사실 저 오늘 아무것도 안 했습니다.. <br/>
+https://marshall-ku.com/
+
+오늘 집에 간다면 주말동안 깃허브에 올리지 않은 코딩이랑 오늘 한 MD파일을 합쳐야 합니다.
+
+처음으로 DIFF를 써보겠네요!
+
+두근두근해요! 실수 없이 날리는 내용 없이 잘 올리고 싶어요
+>>>>>>> 6edc11a66f5d45a7cf188cf398c7bf9ceb48f658
 
 
 
