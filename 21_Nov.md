@@ -1,5 +1,8 @@
 # <span style="color:#FFBDF5"> 11월의 기록 </span>
 
+###### 이 기록을 남기는 이유는 매일매일 얻어가는 지식이 있기를 바라는 마음에서 하는 기록입니다.
+<br/>
+<br/>
 매일 헷갈리는 나를 위한 git 사용법 <br>
 https://rogerdudler.github.io/git-guide/index.ko.html
 
@@ -324,4 +327,128 @@ __dirname에서 상위 폴더로 올라가는게 오류가 나서 포기하고 �
 * 접속중인 사람 판별까지 (이거 어떻게 하지?)
 
 아.. 암것도 하기 싫다...
+
+---
+
+> ## 2021-11-25 (목)
+
+<br/>
+
+하다가 또 포기했습니다.. 스프링으로 개발할게요...ㅠ..
+
+nodejs는 나중에 인프런으로 강의라도 들어보는 걸로...
+
+스프링으로 열심히 짜는중
+
+---
+
+> ## 2021-11-26 (금)
+
+<br/>
+
+스프링은 탑골공원이란 말에 현타 맞았습니다..
+
+오류 하나 고치지 못하고 차장님과 수다를 떨었습니다.. <BR/>
+## <span style="color:#FFBDF5"> 괜찮아요 시험 합격했단 얘기에 넘 신이 납니다. 수고했어~ </span>
+
+---
+
+> ## 2021-11-29 (월) 🌞
+
+<br/>
+
+내일 해야 할 일이 있어서 미리 코드를 보는데 널처리가 참 중요한거 같아요. 😥😥<BR/>
+널처리 예외처리만 잘해도 반은 먹고 들어갈 거 같고 코드도 알아보기 쉽게 하는게 또 반은 먹고 들어갈 거 같아요.
+
+Javascript
+
+``` javascript
+nvl(변수, '');
+```
+Java
+``` java
+public static String nvl(String str){
+    return str == null ? "" : str.trim();
+}
+
+String var = nvl('변수');
+
+```
+
+## <span style="color:#FFBDF5"> 꼭 널처리 확실하게 하기! 🧐</span>
+
+구현하다가 보니까 화면 들어가자마자 셋팅 되어야 하는 값들이 아주 많은거 같아요!
+
+그럴땐 <br/>
+controller 에서 mav에 addObject로 값을 매핑해서 보내줍니다.
+request -> controller -> view <Br/>
+
+```java
+public ModelAndView MyController(HttpServletRequest req, HttpServletResponse res){
+    ModelAndView mav = new ModelAndView();
+    mav.addObject("initVal", "1");
+    mav.setViewName("/index.jsp");
+    return mav;
+}
+```
+
++응용 <br/>
+request -> controller -> view -> ajax request -> controller -> view
+
+```java
+public ModelAndView MyController(HttpServletRequest req, HttpServletResponse res){
+    ModelAndView mav = new ModelAndView();
+    mav.addObject("initVal", "1");
+    mav.setViewName("/index.jsp");
+    return mav;
+}
+```
+```javascript
+$(document).ready(function){
+    search();
+}
+function search(){
+    $.ajax({
+         type:'post'
+        ,url:'/search.do'
+        ,dataType:'json'
+        ,data: { var : '1' }
+        ,async: true
+        ,success: function(result){
+            console.log(result);
+        }
+        ,complete: function(result){
+
+        }
+        ,error: function(result){
+
+        }
+    });
+}
+```
+```java
+@RequestMapping(value='/search.do')
+public String search(HttpServletRequest req, HttpServletResponse res){
+    JSONObject obj = new JSONObject();
+    Map<String,String> param = new HashMap<String,String>();
+    searchCondition(param,req);
+    //db 접속을 해서 데이터를 가져오는 경우
+    List<HashMap<String,String>> resultList = new List<HashMap<String,Stirng>>();
+    resultList = service.selectQuery(param);
+    jso.accumulate("resultList",resultList);
+    return jso.toString();
+}
+
+private void searchCondition(Map<String,String>map, HttpServletRequrest req){
+    String var = req.getParameter("var");
+    map.put("var", var);
+}
+```
+근데 생각해보니 1일 1커밋을 이렇게 다이어리처럼 하고 있네 😅<br/>
+그래도 나름 꾸준히 하는것에 의의를 두기로
+
+아니 자바를 열심히 디버깅 중이었는데 갑자기 자바스크립트에서도 디버깅이 나길래 뭔가 브레이크 포인트가 있는줄 알았습니다.
+
+아무런 브레이크 포인트 없이 디버깅으로 전환 되는건 왜 때문일까?
+
 
