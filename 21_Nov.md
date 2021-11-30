@@ -315,8 +315,7 @@ __dirname에서 상위 폴더로 올라가는게 오류가 나서 포기하고 �
 <img src="./img/1124_1.png"> </img>
 
 
-# 첫 기능
-
+# first
 제가 블로그에 처음으로 하고 싶은 기능은 방명록 기능입니다!
 
 렛츠고!!!
@@ -452,3 +451,68 @@ private void searchCondition(Map<String,String>map, HttpServletRequrest req){
 아무런 브레이크 포인트 없이 디버깅으로 전환 되는건 왜 때문일까?
 
 
+---
+
+> ## 2021-11-30 (화) 🌧
+
+<br/>
+
+월급날입니다~ 🤗
+
+아..! 드디어 해결했습니다.
+스프링 인터셉터가 자꾸 안 되길래 왜 안되나 했는데..
+```xml
+    <interceptors>
+		<interceptor>
+			<mapping path="/**" />
+			<exclude-mapping path="/welcome.do"/>
+			<beans:bean class="com.cho.myBlog.web.myBlogInterceptor" />
+		</interceptor>
+	</interceptors>
+```
+web.xml에서 인터셉터를 설정 해주는 코드는 이렇게 됩니다.
+휴~ 드디어 첫 발걸음을 뗀 기분 😅
+
+여기서 다시 어떤 기능을 구현 할 건지 보고 다음 발걸음을 떼어봅시다.
+
+[첫 기능](#first)
+
+구현하던 도중 jsp에서 css와 js를 찾지 못하고 있다는 걸 발견했습니다.
+
+<img src="./img/1130_1.png">
+
+<br/>
+<br/>
+블로그 제작중에 일이 들어와서 일을 하고 있는데.. <br/>
+
+## 제 SQL에 문제가 많았나봅니다.. 상사분께서 바꿔서 커밋 해놓으셨습니다. <br/>
+우선 CASE~WHEN~THEN -> DECODE로 바뀌어 있습니다.<br/>
+<isNotEmpty></isNotEmpty> 도 많이 바뀌어 있구요
+
+휴.. 상사분께 죄송할따름.. 믿고 일을 맡겨주셨는데 계속 결말이 좋지 못해서.. 점심 먹고 더 열심히 해봅시다!
+
+오늘 개발하면서 다시 한번 sql의 중요성과 디버깅의 중요성에 대해 배워갑니다...
+
+~~25살인데 매일매일 배우는게 있고 매일매일 깨닫는게 있다는거..
+아직 어린나이 같기도 하면서도 먹을만큼 먹었다 생각하는데..~~
+
+아니 개발하면서 또 느낀점
+
+```java
+boolean TorF = true;
+if(!TroF){
+    System.out.println("여긴 TorF가 FALSE면 실행 됩니다");
+}else{
+    System.out.println("여긴 TorF가 TRUE면 실행 됩니다");
+}
+```
+이 코드가 항상 헷갈립니다 진짜..😅
+
+아니 만약 TRUE일 때보다 FALSE일 때가 더 많은 경우엔 if에 else까지 내려와서 뭐 더 복잡하고 그런가? 그런건 아니겠지?
+
+또 궁금한 점 <br/>
+제가 log 찍는걸 좋아해서 이곳저곳 여기저기 사방팔방 로그란 로그는 다 찍었는데 이게 나중에 서버관리하는 분들이나 로그 보시는 분들께 방해가 되지는 않겠죠?
+
+업무가 이것저것 많이 들어왔습니다. <br/>
+이번엔 폐를 끼치지 않기로..  <br/>
+신입이란 이유 하나로 정말 많은 배려를 받고 있고 잘 해내길
