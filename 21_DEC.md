@@ -316,7 +316,7 @@ function first(){
 
 function createXmlHttp(){
     if(xmlHttp!=null){
-        xmlHttp.abort();
+        xmlHttp.abort(); //abort()가 도대체 뭔가
         delete xmlHttp;
         xmlHttp = null;
     }
