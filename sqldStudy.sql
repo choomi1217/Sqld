@@ -845,8 +845,14 @@ ORDER BY TYPE DESC, NAME;
 
 SELECT * FROM V$PARAMETER;
 
+SELECT SUBSTR('1|2|3',INSTR('1|2|3','|')+1,INSTR('1|2|3','|')-1) as poi
+FROM dual;
 
-
+SELECT ID, substr(A.TXT,
+              instr(A.TXT, '|', 1, LEVEL) + 1,
+              instr(A.TXT, '|', 1, LEVEL + 1) - instr(A.TXT, '|', 1, LEVEL) - 1) TXT
+   FROM (SELECT  'ASER' AS ID ,'|A|B|C|D|' TXT FROM dual) A
+CONNECT BY LEVEL <= length(A.TXT) - length(REPLACE(A.TXT, '|')) - 1;
 
 
 

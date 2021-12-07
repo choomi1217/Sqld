@@ -355,3 +355,93 @@ URL을 타고 들어가면 XML파일이 나옵니다 거기서 TAG들을 끌어�
 대단해요.. 이런걸 어떻게 만드는건지...
 
 
+
+---
+
+> ## 2021-12-7 (화) 🌞
+
+현재 진행중인 프로젝트 
+1. 내 블로그 (jquery, spring, tomcat, oracle)
+2. 선거구 획정 프로그램 (jquery, spring, tomcat, geoserver, postgre)
+
+web.xml -> welcom-file -> login.do -> UserController.java 
+
+loginProcess.do (로그인 판별) -> 로그인 성공시 -> opertList.do
+
+이 프로젝트에선 암호화 알고리즘을 SHA-256 을 사용합니다.
+spring security, aria만 쓰다가 sha는 처음 보는거 같아요.
+
+항공지도 
+http://210.117.198.120:8081/o2map/services?service=WMTS&request=GetTile&version=1.0.0&layer=AIRPHOTO&style=_null&format=image/jpg&tilematrixset=NGIS_AIR&tilematrix=17&tilerow=15317&tilecol=9188&apiKey=1482BA6C941C4BA57FD8CDA5CFF4C3AE
+
+기본지도
+http://localhost:8085/openapi/Gettile.do?service=WMTS&request=GetTile&version=1.0.0&layer=korean_map&style=korean&format=image/png&tilematrixset=korean&tilematrix=L17&tilerow=15320&tilecol=9194&apikey=1482BA6C941C4BA57FD8CDA5CFF4C3AE
+
+백지도
+http://localhost:8085/openapi/Gettile.do?service=WMTS&request=GetTile&version=1.0.0&layer=white_map&style=korean&format=image/png&tilematrixset=korean&tilematrix=L17&tilerow=15318&tilecol=9191&apikey=1482BA6C941C4BA57FD8CDA5CFF4C3AE
+
+GeoServer 다운로드 위치 
+C:\Program Files (x86)\GeoServer 2.8.5
+
+###### ~~나는 아무것도 하는 일이 없다.. 내가 이 무시들 다 버텨낸다 내가 진짜.. 내가 여기 사업단 기술 다 배워서 이직한다 진짜.. 눈물나요.. 팀장님이 이것저것 말 걸다가 마저 쉬세요 하는데.. 나 일하려고 여기 왔는데 어이없어서 눈물납니다.~~
+
+<br/>
+<br/>
+
+<img src="./img/1207_1.png">
+
+js와 css 못찾은 이유를 찾았습니다!
+WEB-INF 안에 있던 정적문서들을 webapp 아래로 옮겼더니 해결 됐습니다.
+
+* 문제 1
+    - 인코딩 에러 발견
+* 해결 1
+    - jsp에 인코딩 태그
+    - encodingfilter 설정
+``` JSP
+
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
+```
+```xml
+    <filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>utf-8</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping>
+```
+
+
+[ 지시자 : <%@   %> ]
+
+JSP 페이지가 컨테이너에게 필요한 메세지를 보내기 위한 태그 <br/>
+page : JSP 페이지의 전체적인 속성을 지정 <br/>
+include : 다른 페이지를 현재 페이지에 삽입 <br/>
+taglib : 태그라이브러리의 태그 사용 <br/>
+범위 : JSP 파일 전체 (클래스를 import 할 경우 파일 내 어디서든 접근할 수 있음) <br/>
+
+``` jsp
+<%@ page import="java.util.Arrays"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
+ ```
+
+page는 대부분 import나 에러 페이지 삽입 등의 용도로 많이 사용
+
+[참고](https://codevang.tistory.com/197)
+
+
+* 문제 2
+    - javascript function이 찾아지지 않는 문제 발견
+* 해결 2
+    - jquery 가져오는 ```<script>``` 를 제대로 닫지 않아서 생긴 문제
+    
+
+
