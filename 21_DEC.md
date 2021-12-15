@@ -709,3 +709,42 @@ var options = {
 
 ```
 
+---
+
+> ## 2021-12-15 (수) 
+
+<br/>
+
+팀원이 셋인데 세명 모두 로컬 db에 접속해 서로 다른 db를 사용하고 있어서 이건 문제가 있다 싶어서 db를 하나로 통일했습니다!
+
+그래서 그 방법을 기록하려고 합니다.
+
+## 1. conf 파일 설정
+C:\Program Files\PostgreSQL\12\data\pg_hba.conf 에 
+ipV4 아래에 <br/>
+### host    all             all             0.0.0.0/0            md5
+설정을 해서 모든 ip 허용으로 해둡니다.
+
+
+C:\Program Files\PostgreSQL\12\data\postgresql.conf 에 
+### listen_addresses = '*'
+설정을 해서 모든 주소 허용으로 해둡니다.
+
+## 2. 방화벽 설정
+그러고 방화벽에서 inbound 규칙으로 postgres port를 허용해주면 끝!
+
+<img src="./img/1215_1.png">
+
+[참고1](https://wiki.mcneel.com/ko/zoo/window7firewall) <br/>
+[참고2](https://hgko1207.github.io/2020/09/11/postgresql-2/)
+
+그렇게 db 연결하고 나니까 geoserver에서 불러오는게 다른가 봅니다.. 
+서로 뜨는게 다르다고 하네요
+
+geoserver도 같은 방식으로 연결했습니다.
+
+svn을 사용해볼까 합니다 svn하는김에 jenkins도 할겁니다.
+
+[참고1](https://oingdaddy.tistory.com/207)<br/>
+
+svn연결을 하는데서 막혔습니다. 공유기를 통해 로컬로라도 연결 해보려고 하는데 공유기가 잠겨있습니다.. 
