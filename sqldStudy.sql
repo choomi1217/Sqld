@@ -854,6 +854,32 @@ SELECT ID, substr(A.TXT,
    FROM (SELECT  'ASER' AS ID ,'|A|B|C|D|' TXT FROM dual) A
 CONNECT BY LEVEL <= length(A.TXT) - length(REPLACE(A.TXT, '|')) - 1;
 
+-- T 테이블에 통계정보를 수집
+EXEC dbms_stats.gather_table_stats( user, 't');
+
+SELECT * FROM T 
+WHERE deptno = 10 AND NO = 1;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
