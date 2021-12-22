@@ -780,7 +780,7 @@ ERD도 그려보고, 약어설명서도 써보고
 
 그렇게 나올 산출물 목록을 적어두겠습니다.
 
-### 산출물 목록
+## 산출물 목록
 - 논리물리 ERD
 - 약어설명서
 - 화면설계서
@@ -789,3 +789,74 @@ ERD도 그려보고, 약어설명서도 써보고
     - 컬럼정의서
 - UML (아직 뭘로 할지 미정)
 - 프로그램명세서
+
+---
+
+> ## 2021-12-21 (화) 
+
+<br/>
+
+산출물 목록을 보다가 소스코드 보안약점 점검결과 파일을 보았습니다.
+
+여기 사업단은 BigLook V6.0 을 사용해 자동진단을 합니다.
+
+## ServletContextListener
+웹 어플리케이션이 시작되고, 종료될 때 특정한 기능을 수행
+
+등록 방법
+
+web.xml
+``` xml
+<listener>
+	<listener-class>리스너 클래스 경로</listener-class>
+</listener>
+```
+
+[server.xml 참고](https://indienote.tistory.com/496) <br/>
+[web.xml의 파람 참고](https://erjuer.tistory.com/20)
+
+
+## 크로스도메인이슈
+
+### JAVA 단에서 Header에
+response.setHeader("Access-Control-Allow-Origin", "*"); //CROSS DOMAIN <br/>
+교차 출처 리소스 공유 (CORS)
+
+자신의 출처와 동일한 리소스만 불러올 수 있으며, 다른 출처의 리소스를 불러오려면 그 출처에서 올바른 CORS 헤더를 포함한 응답을 반환해야 합니다.
+
+### JSP AJAX 에서 
+
+[참고](http://www.codejs.co.kr/jquery-jsonp/)
+
+### 작업현황 & 공유작업 리스트 목록을 화면에 뿌리는 과정
+
+wellcome -> login.do -> loginProcess.do -> opertList.do 
+-> function viewOpertList(pageIndex) (JS) -> viewOpertList (JAVA) return mav -> viewOpertList.jsp (여기 안에 데이터 매핑해서) -> $("#opertListWrap").html(data)
+
+왜 어떻게 document.ready가 없는데도 어떻게 문서 로드 되자마자 스크립트가 실행되지 싶었는데
+<img src='./img/1221_1.png'>
+<img src='./img/1221_2.png'>
+
+이런 방법이 있군요! 신기해서 적어봤습니다!
+
+---
+
+> ## 2021-12-22 (수) 
+
+<br/>
+
+### JS 소스코드 난독화 (개발자 창에서 숨기기)
+
+working 산출물 보다가 JavaScript 코드 난독화를 봤습니다!
+
+우선은 안드로이드 앱 상에서의 난독화기는 했는데 그래도 알아보고 싶어서 찾아봤습니다
+
+
+jboss??
+
+어후.. 하루종일 산출물 작업 했습니다...
+
+열심히 코드 정리하다가 이런걸 써봤습니다.
+<img src='./img/1222_1.png'>
+
+Type Hierachy를 열면 이렇게 메소드들이 주르륵 뜨더라구요! 신기!!
