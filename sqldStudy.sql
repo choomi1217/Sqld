@@ -860,7 +860,12 @@ EXEC dbms_stats.gather_table_stats( user, 't');
 SELECT * FROM T 
 WHERE deptno = 10 AND NO = 1;
 
+show parameter block_size;
+-- v$가 뭔지 궁금해서 검색했더니 위 쿼리를 실행시켜 보라고 해서 실행시켰더니 여기에 TABLE_NAME이란 컬럼에 있다
 
+select * from dict where TABLE_NAME LIKE 'V$%' ORDER BY TABLE_NAME;
+
+select value from v$parameter where name = 'db_block_size';
 
 
 
