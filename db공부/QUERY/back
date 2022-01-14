@@ -1,0 +1,208 @@
+-- DUAL 테이블에서 50 이하인 데이터들 셀렉
+SELECT ROWNUM no 
+FROM DUAL CONNECT BY LEVEL <= 50 ;
+
+--
+CREATE TABLE t 
+AS 
+SELECT d.no , e.*
+FROM scott.emp e
+          , ( SELECT ROWNUM no 
+               FROM DUAL CONNECT BY LEVEL <= 1000 ) d ;
+               
+--
+SELECT * FROM t ;
+
+--
+CREATE INDEX t_x01 ON t(deptno, no);
+CREATE INDEX t_x02 ON t(deptno, job, no);
+
+--
+-- DBMS_STATS.GATHER_TABLE_STATS( 유저이름, 테이블명 ) : 유저이름의 테이블로 통계정보를 수집
+-- 통계 정보에는 오브젝트 통계와 시스템 통계가 있음, 오브젝트엔 테이블, 인덱스,  컬럼이 존재
+
+EXEC DBMS_STATS.GATHER_TABLE_STATS( 'edu16', 't' ); --테이블 통계수집
+EXEC DBMS_STATS.GATHER_INDEX_STATS('edu16','t_x01');  --인덱스 통계수집
+EXEC DBMS_STATS.GATHER_TABLE_STATS('edu16','t',CASCADE=TRUE);  --테이블,인덱스 동시수집
+EXEC DBMS_STATS.GATHER_TABLE_STATS('scott','emp',CASECADE=FALSE, METHOD_OPT='for columns ename size 10, deptno size 4'); --히스토그램 수집
+
+-- 수집된 테이블 통계정보를 조회하는 쿼리 / all_tab_statistics 뷰에서도 같은 정보 확인가능
+-- 뷰이면은.. 가상 테이블이란 얘긴가???
+ SELECT num_rows, blocks, avg_row_len, sample_size, last_analyzed
+  FROM all_tables
+WHERE owner = 'scott' AND table_name='emp';
+
+ SELECT num_rows, blocks, avg_row_len, sample_size, last_analyzed
+  FROM all_tables
+WHERE owner = 'edu16' AND table_name='t';
+
+ SELECT endpoint_value, endpoint_number
+  FROM all_histograms
+WHERE owner = 'scott'
+             AND table_name = 'emp'
+             AND column_name = 'deptno'
+ORDER BY endpoint_value;  
+
+SELECT * FROM all_tab_statistics;
+
+--
+
+ SELECT * 
+  FROM t
+WHERE deptno = 10 
+            AND no = 1 ;
+
+/* INDEX (t t_x02) : t테이블 t_x0 인덱스를 유도 */
+/* NO_INDEX_SS(t) : 스킵 스캔(ss)을 제외한 다른 엑세스방법을 유도 */
+ SELECT /*+INDEX(t t_x02) NO_INDEX_SS(t) */  *
+  FROM t 
+WHERE deptno = 10 
+             AND NO = 1;
+
+ SELECT /*+ FULL(t) */ * 
+  FROM t
+WHERE deptno = 10 
+             AND NO = 1; 
+
+--
+ SELECT /*+ GATHER_PLAN_STATISTICS 0mi */ *
+  FROM scott.dept, scott.emp;
+  
+ SELECT * 
+  FROM V$SQL
+WHERE sql_text LIKE '%0mi%';
+
+
+
+
+
+CREATE TABLE t1 ( a NUMBER, b VARCHAR2(100) ) ;
+CREATE TABLE t2 ( a NUMBER, b VARCHAR2(100) ) ;
+CREATE TABLE t3 ( a NUMBER, b VARCHAR2(100) ) ;
+CREATE TABLE t4 ( a NUMBER, b VARCHAR2(100) ) ;
+CREATE TABLE t5 ( a NUMBER, b VARCHAR2(100) ) ;
+
+-- JOIN 순서를 ORDERED 로 지정 >>> 실행 완료. Time used: 13469 Millis
+DECLARE
+     l_cnt NUMBER;
+BEGIN 
+     FOR i IN 1..10000
+     loop
+          EXECUTE IMMEDIATE ' SELECT /*+ ORDERED */ COUNT(*) ' || 
+                                              ' FROM t1, t2, t3, t4, t5 ' || 
+                                              ' WHERE t1.a = ' || i || 
+                                              ' AND t2.a = ' || i ||
+                                              ' AND t3.a = ' || i ||
+                                              ' AND t4.a = ' || i ||
+                                              ' AND t5.a = ' || i INTO l_cnt;
+     END loop;
+END;
+
+
+-- JOIN 순서 미지정 >> 실행 완료. Time used: 28758 Millis.
+DECLARE
+     l_cnt NUMBER;
+BEGIN 
+     FOR i IN 1..10000
+     loop
+          EXECUTE IMMEDIATE ' SELECT COUNT(*) ' || 
+                                              ' FROM t1, t2, t3, t4, t5 ' || 
+                                              ' WHERE t1.a = ' || i || 
+                                              ' AND t2.a = ' || i ||
+                                              ' AND t3.a = ' || i ||
+                                              ' AND t4.a = ' || i ||
+                                              ' AND t5.a = ' || i INTO l_cnt;
+     END loop;
+END;
+
+
+
+
+
+
+CREATE TABLE t2_3
+AS 
+SELECT * 
+  FROM all_objects;
+  
+SELECT * 
+  FROM t2_3;
+ 
+INSERT INTO t2_3
+SELECT * 
+  FROM t2_3;
+  
+UPDATE t2_3 SET object_id = ROWNUM;
+
+CREATE UNIQUE INDEX t2_3_idx ON t2_3(object_id);
+
+EXEC dbms_stats.gather_table_stats('edu16', 't2_3');
+
+-- 걸린 실행 시간 5.38 sec , parse_calls : 10000 / loads : 1 / executions : 10000 / fetches : 10000
+DECLARE
+  TYPE rc IS REF CURSOR; -- 포인트변수, 반환 타입이 없는 커서
+  l_rc rc; -- 커서를 담은 변수 l_rc, 그럼 l_rc에는 쿼리 수행한 결과를 가진 메모리의 주소를 담고 있는거나? 
+  l_object_name t2_3.object_name%type; -- t2_3 테이블의 object_name 컬럼과 같은 타입의 변수
+BEGIN
+  FOR i IN 1..100000
+  loop
+    OPEN l_rc FOR --커서 오픈 
+      'SELECT /* choTest1 */ object_name
+       FROM t2_3
+       WHERE  object_id = :x' USING i;  --object_id 1~100000까지 찾음
+    FETCH l_rc INTO l_object_name; -- SELECT쿼리 결과를 변수에 옮겨담고
+    CLOSE l_rc; -- 커서 종료
+  END loop; -- 루프 종료
+end;
+
+SELECT sql_text, parse_calls, loads, executions, fetches
+  FROM v$sql
+WHERE 1=1
+--AND parsing_schema_name = 'edu16'
+AND sql_text like '%choTest1%'
+AND sql_text not like '%v$sql%'
+AND sql_text not like 'declare%'
+;
+
+
+-- 실행시간 55.95 sec // 실행 4733
+DECLARE
+  TYPE rc IS REF CURSOR; 
+  l_rc rc; 
+  l_object_name t2_3.object_name%type; 
+BEGIN
+  FOR i IN 1..100000
+  loop
+    OPEN l_rc FOR 
+      'SELECT /* choTest2 */ object_name
+       FROM t2_3
+       WHERE  object_id = ' || i;  
+    FETCH l_rc INTO l_object_name; 
+    CLOSE l_rc; 
+  END loop; 
+end;
+
+SELECT sql_text, parse_calls, loads, executions, fetches
+  FROM v$sql
+WHERE 1=1
+--AND parsing_schema_name = 'edu16'
+AND sql_text like '%choTest2%'
+AND sql_text not like '%v$sql%'
+AND sql_text not like 'declare%'
+;
+
+SELECT count(*)
+  FROM v$sql
+WHERE 1=1
+--AND parsing_schema_name = 'edu16'
+AND sql_text like '%choTest2%'
+AND sql_text not like '%v$sql%'
+AND sql_text not like 'declare%'
+;
+
+
+
+
+
+
+
