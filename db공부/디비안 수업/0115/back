@@ -1,0 +1,937 @@
+Microsoft Windows [Version 10.0.19042.1466]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\o_omi>sqlplus /nolog
+
+SQL*Plus: Release 12.2.0.1.0 Production on 토 1월 15 14:44:49 2022
+
+Copyright (c) 1982, 2016, Oracle.  All rights reserved.
+
+SQL> connect edu16/edu16@tws
+연결되었습니다.
+SQL> set autotrace traceonly exp;
+SQL> alter session set optimizer_mode = 'ALL_ROWS' ;
+
+세션이 변경되었습니다.
+
+SQL> alter session set optimizer_mode = 'ALL_ROWS' ;
+
+세션이 변경되었습니다.
+
+SQL> SELECT *
+  2    FROM edu.t
+  3  WHERE owner = 'sys'
+  4  ORDER BY created;
+
+Execution Plan
+----------------------------------------------------------
+Plan hash value: 470836197
+
+--------------------------------------------------------------------------------
+-----
+
+| Id  | Operation                   | Name  | Rows  | Bytes | Cost (%CPU)| Time
+    |
+
+--------------------------------------------------------------------------------
+-----
+
+|   0 | SELECT STATEMENT            |       |     1 |   133 |     3   (0)| 00:00
+:01 |
+
+|   1 |  TABLE ACCESS BY INDEX ROWID| T     |     1 |   133 |     3   (0)| 00:00
+:01 |
+
+|*  2 |   INDEX RANGE SCAN          | T_IDX |     1 |       |     2   (0)| 00:00
+:01 |
+
+--------------------------------------------------------------------------------
+-----
+
+
+Predicate Information (identified by operation id):
+---------------------------------------------------
+
+   2 - access("OWNER"='sys')
+
+SQL> alter session set optimizer_mode = 'FIRST_ROWS' ;
+
+세션이 변경되었습니다.
+
+SQL>   FROM edu.t SELECT *
+SP2-0734: "FROM edu.t..."(으)로 시작되는 알 수 없는 명령 - 나머지 줄은 무시되었습니다.
+SQL>   FROM edu.t
+SP2-0042: 알 수 없는 명령어 "FROM edu.t" - 나머지 줄 무시.
+SQL> WHERE owner = 'sys'
+SP2-0734: "WHERE owne..."(으)로 시작되는 알 수 없는 명령 - 나머지 줄은 무시되었습니다.
+SQL> ORDER BY created;
+SP2-0734: "ORDER BY c..."(으)로 시작되는 알 수 없는 명령 - 나머지 줄은 무시되었습니다.
+SP2-0044: 명령어 목록을 보려면 HELP를
+빠져나가려면 EXIT를 입력하시오.
+SQL> SELECT *
+  2    FROM edu.t
+  3  WHERE owner = 'sys'
+  4  ORDER BY created;
+
+Execution Plan
+----------------------------------------------------------
+Plan hash value: 470836197
+
+--------------------------------------------------------------------------------
+-----
+
+| Id  | Operation                   | Name  | Rows  | Bytes | Cost (%CPU)| Time
+    |
+
+--------------------------------------------------------------------------------
+-----
+
+|   0 | SELECT STATEMENT            |       |     1 |   133 |     3   (0)| 00:00
+:01 |
+
+|   1 |  TABLE ACCESS BY INDEX ROWID| T     |     1 |   133 |     3   (0)| 00:00
+:01 |
+
+|*  2 |   INDEX RANGE SCAN          | T_IDX |     1 |       |     2   (0)| 00:00
+:01 |
+
+--------------------------------------------------------------------------------
+-----
+
+
+Predicate Information (identified by operation id):
+---------------------------------------------------
+
+   2 - access("OWNER"='sys')
+
+SQL> alter session set optimizer_mode = 'ALL_ROWS' ;
+
+세션이 변경되었습니다.
+
+SQL> alter session set optimizer_mode = 'FIRST_ROWS' ;
+
+세션이 변경되었습니다.
+
+SQL> alter session set optimizer_mode = 'FIRST_ROWS' ;
+
+세션이 변경되었습니다.
+
+SQL> SELECT  종목영문심볼, 거래일시, SUBSTR(거래일시,9,6) 거래시각, 현재환율가격
+  2    FROM  edu.실시간환율
+  3   WHERE  종목영문심볼 = 'USDKRWCOMP'
+  4     AND  해외은행코드 = 'EUAM'
+  5     AND  SUBSTR(거래일시,1,8) = '20190601'
+  6    -- AND  SUBSTR(거래일시,9,6) >= '090000'
+  7    -- AND  SUBSTR(거래일시,9,6) <= '150000'
+  8  ​;
+?
+*
+8행에 오류:
+ORA-00911: 문자가 부적합합니다
+
+
+SQL>   -- AND  SUBSTR(거래일시,9,6) <= '150000SELECT  종목영문심볼, 거래일시, SUBSTR(거래일시,9,6) 거래시각, 현재환율가격
+SQL>   FROM  edu.실시간환율
+SP2-0734: "FROM  edu...."(으)로 시작되는 알 수 없는 명령 - 나머지 줄은 무시되었습니다.
+SQL>  WHERE  종목영문심볼 = 'USDKRWCOMP'
+SP2-0734: "WHERE        종..."(으)로 시작되는 알 수 없는 명령 - 나머지 줄은 무시되었습니다.
+SQL>    AND  해외은행코드 = 'EUAM'
+SP2-0734: "AND  해외..."(으)로 시작되는 알 수 없는 명령 - 나머지 줄은 무시되었습니다.
+SQL>    AND  SUBSTR(거래일시,1,8) = '20190601'
+SP2-0734: "AND  SUBST..."(으)로 시작되는 알 수 없는 명령 - 나머지 줄은 무시되었습니다.
+SP2-0044: 명령어 목록을 보려면 HELP를
+빠져나가려면 EXIT를 입력하시오.
+SQL>   -- AND  SUBSTR(거래일시,9,6) >= '090000'
+SQL>   -- AND  SUBSTR(거래일시,9,6) <= '150000'
+SQL> ​;SELECT  종목영문심볼, 거래일시, SUBSTR(거래일시,9,6) 거래시각, 현재환율가격
+SP2-0172: 이 항목에 해당하는 도움말을 찾을 수 없습니다.
+SQL>   FROM  edu.실시간환율
+SP2-0734: "FROM  edu...."(으)로 시작되는 알 수 없는 명령 - 나머지 줄은 무시되었습니다.
+SQL>  WHERE  종목영문심볼 = 'USDKRWCOMP'
+SP2-0734: "WHERE        종..."(으)로 시작되는 알 수 없는 명령 - 나머지 줄은 무시되었습니다.
+SQL>    AND  해외은행코드 = 'EUAM'
+SP2-0734: "AND  해외..."(으)로 시작되는 알 수 없는 명령 - 나머지 줄은 무시되었습니다.
+SQL>    AND  SUBSTR(거래일시,1,8) = '20190601'
+SP2-0734: "AND  SUBST..."(으)로 시작되는 알 수 없는 명령 - 나머지 줄은 무시되었습니다.
+SP2-0044: 명령어 목록을 보려면 HELP를
+빠져나가려면 EXIT를 입력하시오.
+SQL>   -- AND  SUBSTR(거래일시,9,6) >= '090000'
+SQL>   -- AND  SUBSTR(거래일시,9,6) <= '150000'
+SQL> ​;
+
+ HELP
+ ----
+
+ Accesses this command line help system. Enter HELP INDEX or ? INDEX
+ for a list of topics.
+
+ You can view SQL*Plus resources at
+     http://www.oracle.com/technology/documentation/
+
+ ******************************************************************************
+ **  Top 12.2 features:                                                      **
+ **    - Fast retrieval of data as CSV for use in applications like          **
+ **      SQL*Loader. Use SQLPLUS -M "CSV ON" or SET MARKUP CSV ON            **
+ **    - Improved defaults and optimizations for reports. Use SQLPLUS -F     **
+ **    - Command recall. Use SET HISTORY ON and HISTORY to list previous     **
+ **      commands.                                                           **
+ ******************************************************************************
+
+ HELP|? [topic]
+
+
+SQL> SELECT  종목영문심볼, 거래일시, SUBSTR(거래일시,9,6) 거래시각, 현재환율가격
+  2    FROM  edu.실시간환율
+  3   WHERE  종목영문심볼 = 'USDKRWCOMP'
+  4     AND  해외은행코드 = 'EUAM'
+  5     AND  SUBSTR(거래일시,1,8) = '20190601'
+  6    -- AND  SUBSTR(거래일시,9,6) >= '090000'
+  7    -- AND  SUBSTR(거래일시,9,6) <= '150000'
+  8  ;
+
+Execution Plan
+----------------------------------------------------------
+Plan hash value: 2862480186
+
+--------------------------------------------------------------------------------
+--------
+
+| Id  | Operation                   | Name     | Rows  | Bytes | Cost (%CPU)| Ti
+me     |
+
+--------------------------------------------------------------------------------
+--------
+
+|   0 | SELECT STATEMENT            |          |  5000 |   166K| 30280   (3)| 00
+:00:02 |
+
+|   1 |  TABLE ACCESS BY INDEX ROWID| 실시간환 |  5000 |   166K| 30280   (3)| 00
+:00:02 |
+
+|*  2 |   INDEX RANGE SCAN          | 실시간환 |  5000 |       | 30166   (3)| 00
+:00:02 |
+
+--------------------------------------------------------------------------------
+--------
+
+
+Predicate Information (identified by operation id):
+---------------------------------------------------
+
+   2 - access("종목영문심볼"='USDKRWCOMP' AND "해외은행코드"='EUAM')
+       filter("해외은행코드"='EUAM' AND SUBSTR("거래일시",1,8)='20190601')
+
+SQL> SELECT 종목영문심볼, 거래일시, SUBSTR(거래일시,9,6) 거래시각, 현재환율가격
+  2    FROM  edu.실시간환율
+  3  WHERE 거래일시 BETWEEN '20190601090000' AND '20190601150000';
+
+Execution Plan
+----------------------------------------------------------
+Plan hash value: 666517570
+
+--------------------------------------------------------------------------------
+--------
+
+| Id  | Operation                   | Name     | Rows  | Bytes | Cost (%CPU)| Ti
+me     |
+
+--------------------------------------------------------------------------------
+--------
+
+|   0 | SELECT STATEMENT            |          |    32 |   928 |     6   (0)| 00
+:00:01 |
+
+|   1 |  TABLE ACCESS BY INDEX ROWID| 실시간환 |    32 |   928 |     6   (0)| 00
+:00:01 |
+
+|*  2 |   INDEX SKIP SCAN           | 실시간환 |    32 |       |     5   (0)| 00
+:00:01 |
+
+--------------------------------------------------------------------------------
+--------
+
+
+Predicate Information (identified by operation id):
+---------------------------------------------------
+
+   2 - access("거래일시">='20190601090000' AND "거래일시"<='20190601150000')
+       filter("거래일시">='20190601090000' AND "거래일시"<='20190601150000')
+
+SQL> set autotrace on;
+SQL> SELECT 종목영문심볼, 거래일시, SUBSTR(거래일시,9,6) 거래시각, 현재환율가격
+  2    FROM  edu.실시간환율
+  3  WHERE 거래일시 BETWEEN '20190601090000' AND '20190601150000';
+
+
+^C
+C:\Users\o_omi>set autotrace only;
+autotrace only; 환경 변수가 정의되지 않았습니다.
+
+C:\Users\o_omi>set autotrace traceonly;
+autotrace traceonly; 환경 변수가 정의되지 않았습니다.
+
+C:\Users\o_omi>set autotrace traceonly
+autotrace traceonly 환경 변수가 정의되지 않았습니다.
+
+C:\Users\o_omi>set autotrace traceonly statistics
+autotrace traceonly statistics 환경 변수가 정의되지 않았습니다.
+
+C:\Users\o_omi>set autotrace traceonly explain;
+autotrace traceonly explain; 환경 변수가 정의되지 않았습니다.
+
+C:\Users\o_omi>set autotrace on
+autotrace on 환경 변수가 정의되지 않았습니다.
+
+C:\Users\o_omi>SELECT 종목영문심볼, 거래일시, SUBSTR(거래일시,9,6) 거래시각, 현재환율가격
+'SELECT'은(는) 내부 또는 외부 명령, 실행할 수 있는 프로그램, 또는
+배치 파일이 아닙니다.
+
+C:\Users\o_omi>  FROM  edu.실시간환율
+'FROM'은(는) 내부 또는 외부 명령, 실행할 수 있는 프로그램, 또는
+배치 파일이 아닙니다.
+
+C:\Users\o_omi>WHERE 거래일시 BETWEEN '20190601090000' AND '20190601150000';
+정보: 제공된 패턴에 해당되는 파일을 찾지 못했습니다.
+
+C:\Users\o_omi>SELECT 종목영문심볼, 거래일시, SUBSTR(거래일시,9,6) 거래시각, 현재환율가격
+'SELECT'은(는) 내부 또는 외부 명령, 실행할 수 있는 프로그램, 또는
+배치 파일이 아닙니다.
+
+C:\Users\o_omi>  FROM  edu.실시간환율
+'FROM'은(는) 내부 또는 외부 명령, 실행할 수 있는 프로그램, 또는
+배치 파일이 아닙니다.
+
+C:\Users\o_omi>WHERE 거래일시 BETWEEN '20190601090000' AND '20190601150000';
+정보: 제공된 패턴에 해당되는 파일을 찾지 못했습니다.
+
+C:\Users\o_omi>sqlplus /nolog
+
+SQL*Plus: Release 12.2.0.1.0 Production on 토 1월 15 16:25:33 2022
+
+Copyright (c) 1982, 2016, Oracle.  All rights reserved.
+
+SQL> connect edu16/edu16@tws
+연결되었습니다.
+SQL> set autotrace on;
+SQL> set autotrace traceonly;
+SQL> set autotrace traceonly explain;
+SQL> set autotrace traceonly statistics;
+SQL> set autotrace traceonly statisticSELECT 종목영문심볼, 거래일시, SUBSTR(거래일시,9,6) 거래시각, 현재환율가격
+SP2-0735: SET 옵션은 "statisticS..."(으)로 시작되는 알 수 없는 옵션입니다
+SQL>   FROM  edu.실시간환율
+SP2-0734: "FROM  edu...."(으)로 시작되는 알 수 없는 명령 - 나머지 줄은 무시되었습니다.
+SQL> WHERE 거래일시 BETWEEN '20190601090000' AND '20190601150000';
+SP2-0734: "WHERE 거래..."(으)로 시작되는 알 수 없는 명령 - 나머지 줄은 무시되었습니다.
+SQL> SELECT 종목영문심볼, 거래일시, SUBSTR(거래일시,9,6) 거래시각, 현재환율가격
+  2    FROM  edu.실시간환율
+  3  WHERE 거래일시 BETWEEN '20190601090000' AND '20190601150000';
+
+3600 행이 선택되었습니다.
+
+
+Execution Plan
+----------------------------------------------------------
+Plan hash value: 666517570
+
+--------------------------------------------------------------------------------
+--------
+
+| Id  | Operation                   | Name     | Rows  | Bytes | Cost (%CPU)| Ti
+me     |
+
+--------------------------------------------------------------------------------
+--------
+
+|   0 | SELECT STATEMENT            |          |    32 |   928 |     6   (0)| 00
+:00:01 |
+
+|   1 |  TABLE ACCESS BY INDEX ROWID| 실시간환 |    32 |   928 |     6   (0)| 00
+:00:01 |
+
+|*  2 |   INDEX SKIP SCAN           | 실시간환 |    32 |       |     5   (0)| 00
+:00:01 |
+
+--------------------------------------------------------------------------------
+--------
+
+
+Predicate Information (identified by operation id):
+---------------------------------------------------
+
+   2 - access("거래일시">='20190601090000' AND "거래일시"<='20190601150000')
+       filter("거래일시">='20190601090000' AND "거래일시"<='20190601150000')
+
+
+Statistics
+----------------------------------------------------------
+          1  recursive calls
+          0  db block gets
+       1041  consistent gets
+         13  physical reads
+        132  redo size
+     147558  bytes sent via SQL*Net to client
+       3180  bytes received via SQL*Net from client
+        241  SQL*Net roundtrips to/from client
+          0  sorts (memory)
+          0  sorts (disk)
+       3600  rows processed
+
+SQL> SELECT 종목영문심볼, 거래일시, SUBSTR(거래일시,9,6) 거래시각, 현재환율가격
+  2    FROM  edu.실시간환율
+  3  WHERE  종목영문심볼 = 'USDKRWCOMP'   AND  해외은행코드 = 'EUAM'  AND 거래일시 BETWEEN '20190601090000' AND '20190601150000';
+
+180 행이 선택되었습니다.
+
+
+Execution Plan
+----------------------------------------------------------
+Plan hash value: 2862480186
+
+--------------------------------------------------------------------------------
+--------
+
+| Id  | Operation                   | Name     | Rows  | Bytes | Cost (%CPU)| Ti
+me     |
+
+--------------------------------------------------------------------------------
+--------
+
+|   0 | SELECT STATEMENT            |          |     2 |    68 |     4   (0)| 00
+:00:01 |
+
+|   1 |  TABLE ACCESS BY INDEX ROWID| 실시간환 |     2 |    68 |     4   (0)| 00
+:00:01 |
+
+|*  2 |   INDEX RANGE SCAN          | 실시간환 |     2 |       |     3   (0)| 00
+:00:01 |
+
+--------------------------------------------------------------------------------
+--------
+
+
+Predicate Information (identified by operation id):
+---------------------------------------------------
+
+   2 - access("종목영문심볼"='USDKRWCOMP' AND "거래일시">='20190601090000' AND
+              "해외은행코드"='EUAM' AND "거래일시"<='20190601150000')
+       filter("해외은행코드"='EUAM')
+
+
+Statistics
+----------------------------------------------------------
+          5  recursive calls
+          0  db block gets
+         49  consistent gets
+          0  physical reads
+          0  redo size
+       8335  bytes sent via SQL*Net to client
+        672  bytes received via SQL*Net from client
+         13  SQL*Net roundtrips to/from client
+          0  sorts (memory)
+          0  sorts (disk)
+        180  rows processed
+
+SQL> SELECT 종목영문심볼, 거래일시, SUBSTR(거래일시,9,6) 거래시각, 현재환율가격
+  2    FROM  edu.실시간환율
+  3  WHERE  종목영문심볼 = 'USDKRWCOMP'   AND  해외은행코드 = 'EUAM'  AND 거래일시 BETWEEN :trdDd || '090000' AND :trdDd || '150000';
+SP2-0552: 바인드 변수 "TRDDD" 가 정의되지 않았습니다.
+SQL> SELECT 종목영문심볼, 거래일시, SUBSTR(거래일시,9,6) 거래시각, 현재환율가격
+  2    FROM  edu.실시간환율
+  3  WHERE  종목영문심볼 = 'USDKRWCOMP'   AND  해외은행코드 = 'EUAM'  AND 거래일시 BETWEEN '20190601090000' AND '20190601150000';
+
+180 행이 선택되었습니다.
+
+
+Execution Plan
+----------------------------------------------------------
+Plan hash value: 2862480186
+
+--------------------------------------------------------------------------------
+--------
+
+| Id  | Operation                   | Name     | Rows  | Bytes | Cost (%CPU)| Ti
+me     |
+
+--------------------------------------------------------------------------------
+--------
+
+|   0 | SELECT STATEMENT            |          |     2 |    68 |     4   (0)| 00
+:00:01 |
+
+|   1 |  TABLE ACCESS BY INDEX ROWID| 실시간환 |     2 |    68 |     4   (0)| 00
+:00:01 |
+
+|*  2 |   INDEX RANGE SCAN          | 실시간환 |     2 |       |     3   (0)| 00
+:00:01 |
+
+--------------------------------------------------------------------------------
+--------
+
+
+Predicate Information (identified by operation id):
+---------------------------------------------------
+
+   2 - access("종목영문심볼"='USDKRWCOMP' AND "거래일시">='20190601090000' AND
+              "해외은행코드"='EUAM' AND "거래일시"<='20190601150000')
+       filter("해외은행코드"='EUAM')
+
+
+Statistics
+----------------------------------------------------------
+          0  recursive calls
+          0  db block gets
+         47  consistent gets
+          0  physical reads
+          0  redo size
+       8335  bytes sent via SQL*Net to client
+        672  bytes received via SQL*Net from client
+         13  SQL*Net roundtrips to/from client
+          0  sorts (memory)
+          0  sorts (disk)
+        180  rows processed
+
+SQL> var trdDd varchar2(14);
+SQL> exec :trdDd := '20190601';
+
+PL/SQL 처리가 정상적으로 완료되었습니다.
+
+SQL> SELECT 종목영문심볼, 거래일시, SUBSTR(거래일시,9,6) 거래시각, 현재환율가격
+  2    FROM  edu.실시간환율
+  3  WHERE  종목영문심볼 = 'USDKRWCOMP'   AND  해외은행코드 = 'EUAM'  AND 거래일시 BETWEEN :trdDd || '090000' AND :trdDd || '150000';
+
+180 행이 선택되었습니다.
+
+
+Execution Plan
+----------------------------------------------------------
+Plan hash value: 2851975509
+
+--------------------------------------------------------------------------------
+---------
+
+| Id  | Operation                    | Name     | Rows  | Bytes | Cost (%CPU)| T
+ime     |
+
+--------------------------------------------------------------------------------
+---------
+
+|   0 | SELECT STATEMENT             |          |  1250 | 42500 |   189   (2)| 0
+0:00:01 |
+
+|*  1 |  FILTER                      |          |       |       |            |
+        |
+
+|   2 |   TABLE ACCESS BY INDEX ROWID| 실시간환 |  1250 | 42500 |   189   (2)| 0
+0:00:01 |
+
+|*  3 |    INDEX RANGE SCAN          | 실시간환 |  2250 |       |   137   (2)| 0
+0:00:01 |
+
+--------------------------------------------------------------------------------
+---------
+
+
+Predicate Information (identified by operation id):
+---------------------------------------------------
+
+   1 - filter(:TRDDD||'150000'>=:TRDDD||'090000')
+   3 - access("종목영문심볼"='USDKRWCOMP' AND "거래일시">=:TRDDD||'090000' AND
+              "해외은행코드"='EUAM' AND "거래일시"<=:TRDDD||'150000')
+       filter("해외은행코드"='EUAM')
+
+
+Statistics
+----------------------------------------------------------
+          2  recursive calls
+          0  db block gets
+         49  consistent gets
+          0  physical reads
+          0  redo size
+       8335  bytes sent via SQL*Net to client
+        672  bytes received via SQL*Net from client
+         13  SQL*Net roundtrips to/from client
+          0  sorts (memory)
+          0  sorts (disk)
+        180  rows processed
+
+SQL> create table emp
+  2  as
+  3  select * from scott.emp;
+
+테이블이 생성되었습니다.
+
+SQL> alter table emp add constraint emp_pk primary key(empno);
+
+테이블이 변경되었습니다.
+
+SQL> create index emp_ename_idx on emp(ename);
+
+인덱스가 생성되었습니다.
+
+SQL> create index emp_sal_idx   on emp(sal);
+
+인덱스가 생성되었습니다.
+
+SQL> create index emp_job_idx   on emp(job);
+
+인덱스가 생성되었습니다.
+
+SQL> select /*+ index(e (ename)) */ *
+  2  from   emp e
+  3  where  ename like '%AM%';
+
+
+Execution Plan
+----------------------------------------------------------
+Plan hash value: 337065383
+
+--------------------------------------------------------------------------------
+-------------
+
+| Id  | Operation                   | Name          | Rows  | Bytes | Cost (%CPU
+)| Time     |
+
+--------------------------------------------------------------------------------
+-------------
+
+|   0 | SELECT STATEMENT            |               |     1 |    38 |     2   (0
+)| 00:00:01 |
+
+|   1 |  TABLE ACCESS BY INDEX ROWID| EMP           |     1 |    38 |     2   (0
+)| 00:00:01 |
+
+|*  2 |   INDEX FULL SCAN           | EMP_ENAME_IDX |     1 |       |     1   (0
+)| 00:00:01 |
+
+--------------------------------------------------------------------------------
+-------------
+
+
+Predicate Information (identified by operation id):
+---------------------------------------------------
+
+   2 - filter("ENAME" LIKE '%AM%' AND "ENAME" IS NOT NULL)
+
+
+Statistics
+----------------------------------------------------------
+         11  recursive calls
+         25  db block gets
+         14  consistent gets
+          0  physical reads
+       4948  redo size
+        880  bytes sent via SQL*Net to client
+        551  bytes received via SQL*Net from client
+          2  SQL*Net roundtrips to/from client
+          0  sorts (memory)
+          0  sorts (disk)
+          2  rows processed
+
+SQL> select /*+ index(e (ename)) */ *
+  2  from   emp e
+  3  where  substr(ename, 1, 2) = 'CL';
+
+
+Execution Plan
+----------------------------------------------------------
+Plan hash value: 3956160932
+
+--------------------------------------------------------------------------
+| Id  | Operation         | Name | Rows  | Bytes | Cost (%CPU)| Time     |
+--------------------------------------------------------------------------
+|   0 | SELECT STATEMENT  |      |     1 |    38 |     4   (0)| 00:00:01 |
+|*  1 |  TABLE ACCESS FULL| EMP  |     1 |    38 |     4   (0)| 00:00:01 |
+--------------------------------------------------------------------------
+
+Predicate Information (identified by operation id):
+---------------------------------------------------
+
+   1 - filter(SUBSTR("ENAME",1,2)='CL')
+
+
+Statistics
+----------------------------------------------------------
+          1  recursive calls
+          2  db block gets
+          8  consistent gets
+          0  physical reads
+          0  redo size
+        817  bytes sent via SQL*Net to client
+        551  bytes received via SQL*Net from client
+          2  SQL*Net roundtrips to/from client
+          0  sorts (memory)
+          0  sorts (disk)
+          1  rows processed
+
+SQL> select /*+ index(e (sal)) */ *
+  2  from   emp e
+  3  where  nvl(sal, 0) < 100;
+
+선택된 레코드가 없습니다.
+
+
+Execution Plan
+----------------------------------------------------------
+Plan hash value: 3956160932
+
+--------------------------------------------------------------------------
+| Id  | Operation         | Name | Rows  | Bytes | Cost (%CPU)| Time     |
+--------------------------------------------------------------------------
+|   0 | SELECT STATEMENT  |      |     1 |    38 |     4   (0)| 00:00:01 |
+|*  1 |  TABLE ACCESS FULL| EMP  |     1 |    38 |     4   (0)| 00:00:01 |
+--------------------------------------------------------------------------
+
+Predicate Information (identified by operation id):
+---------------------------------------------------
+
+   1 - filter(NVL("SAL",0)<100)
+
+
+Statistics
+----------------------------------------------------------
+          3  recursive calls
+          7  db block gets
+          9  consistent gets
+          0  physical reads
+       1000  redo size
+        683  bytes sent via SQL*Net to client
+        540  bytes received via SQL*Net from client
+          1  SQL*Net roundtrips to/from client
+          0  sorts (memory)
+          0  sorts (disk)
+          0  rows processed
+
+SQL> select /*+ index(e (job)) */ *
+  2  from   emp e
+  3  where  job <> 'SALESMAN';
+
+10 행이 선택되었습니다.
+
+
+Execution Plan
+----------------------------------------------------------
+Plan hash value: 1695931034
+
+--------------------------------------------------------------------------------
+-----------
+
+| Id  | Operation                   | Name        | Rows  | Bytes | Cost (%CPU)|
+ Time     |
+
+--------------------------------------------------------------------------------
+-----------
+
+|   0 | SELECT STATEMENT            |             |    11 |   418 |     2   (0)|
+ 00:00:01 |
+
+|   1 |  TABLE ACCESS BY INDEX ROWID| EMP         |    11 |   418 |     2   (0)|
+ 00:00:01 |
+
+|*  2 |   INDEX FULL SCAN           | EMP_JOB_IDX |    11 |       |     1   (0)|
+ 00:00:01 |
+
+--------------------------------------------------------------------------------
+-----------
+
+
+Predicate Information (identified by operation id):
+---------------------------------------------------
+
+   2 - filter("JOB"<>'SALESMAN')
+
+
+Statistics
+----------------------------------------------------------
+          1  recursive calls
+          0  db block gets
+          4  consistent gets
+          0  physical reads
+          0  redo size
+       1213  bytes sent via SQL*Net to client
+        551  bytes received via SQL*Net from client
+          2  SQL*Net roundtrips to/from client
+          0  sorts (memory)
+          0  sorts (disk)
+         10  rows processed
+
+SQL> select /*+ index(e) */ *
+  2  from   emp e
+  3  where (job = :job
+  4         or
+  5         ename = :ename);
+SP2-0552: 바인드 변수 "ENAME" 가 정의되지 않았습니다.
+SQL> var v_ename emp.ename%type;
+사용법: VAR[IABLE] [ <변수> [ NUMBER | CHAR | CHAR (n [CHAR|BYTE]) |
+                    VARCHAR2 (n [CHAR|BYTE]) | NCHAR | NCHAR (n) |
+                    NVARCHAR2 (n) | CLOB | NCLOB | BLOB | BFILE
+                    REFCURSOR | BINARY_FLOAT | BINARY_DOUBLE ] ]
+SQL> var v_ename emp.ename%type;
+사용법: VAR[IABLE] [ <변수> [ NUMBER | CHAR | CHAR (n [CHAR|BYTE]) |
+                    VARCHAR2 (n [CHAR|BYTE]) | NCHAR | NCHAR (n) |
+                    NVARCHAR2 (n) | CLOB | NCLOB | BLOB | BFILE
+                    REFCURSOR | BINARY_FLOAT | BINARY_DOUBLE ] ]
+SQL> emp.ename%Type
+SP2-0734: "emp.ename%..."(으)로 시작되는 알 수 없는 명령 - 나머지 줄은 무시되었습니다.
+SQL> var v_ename emp.ename%TYPE;
+사용법: VAR[IABLE] [ <변수> [ NUMBER | CHAR | CHAR (n [CHAR|BYTE]) |
+                    VARCHAR2 (n [CHAR|BYTE]) | NCHAR | NCHAR (n) |
+                    NVARCHAR2 (n) | CLOB | NCLOB | BLOB | BFILE
+                    REFCURSOR | BINARY_FLOAT | BINARY_DOUBLE ] ]
+SQL> v_ename emp.ename%TYPE;
+SP2-0734: "v_ename em..."(으)로 시작되는 알 수 없는 명령 - 나머지 줄은 무시되었습니다.
+SQL> var v_ename;
+SP2-0552: 바인드 변수 "v_ename" 가 정의되지 않았습니다.
+SQL> var v_ename in emp.ename%TYPE;
+사용법: VAR[IABLE] [ <변수> [ NUMBER | CHAR | CHAR (n [CHAR|BYTE]) |
+                    VARCHAR2 (n [CHAR|BYTE]) | NCHAR | NCHAR (n) |
+                    NVARCHAR2 (n) | CLOB | NCLOB | BLOB | BFILE
+                    REFCURSOR | BINARY_FLOAT | BINARY_DOUBLE ] ]
+SQL> v_ename emp.ename%TYPE;
+SP2-0734: "v_ename em..."(으)로 시작되는 알 수 없는 명령 - 나머지 줄은 무시되었습니다.
+SQL> is select /*+ index(e) */ *
+SP2-0734: "is select ..."(으)로 시작되는 알 수 없는 명령 - 나머지 줄은 무시되었습니다.
+SQL> from   emp e
+SP2-0734: "from emp..."(으)로 시작되는 알 수 없는 명령 - 나머지 줄은 무시되었습니다.
+SQL> where (job = :job
+SP2-0734: "where (job..."(으)로 시작되는 알 수 없는 명령 - 나머지 줄은 무시되었습니다.
+SP2-0044: 명령어 목록을 보려면 HELP를
+빠져나가려면 EXIT를 입력하시오.
+SQL>        or
+SP2-0042: 알 수 없는 명령어 "or" - 나머지 줄 무시.
+SQL>        ename = :ename);
+SP2-0734: "ename = :e..."(으)로 시작되는 알 수 없는 명령 - 나머지 줄은 무시되었습니다.
+SQL>
+SQL> is v_ename emp.empnp%TYPE;
+SP2-0734: "is v_ename..."(으)로 시작되는 알 수 없는 명령 - 나머지 줄은 무시되었습니다.
+SQL> v_ename emp.empno%TYPE;
+SP2-0734: "v_ename em..."(으)로 시작되는 알 수 없는 명령 - 나머지 줄은 무시되었습니다.
+SP2-0044: 명령어 목록을 보려면 HELP를
+빠져나가려면 EXIT를 입력하시오.
+SQL> var v_ename emp.empno%TYPE;
+사용법: VAR[IABLE] [ <변수> [ NUMBER | CHAR | CHAR (n [CHAR|BYTE]) |
+                    VARCHAR2 (n [CHAR|BYTE]) | NCHAR | NCHAR (n) |
+                    NVARCHAR2 (n) | CLOB | NCLOB | BLOB | BFILE
+                    REFCURSOR | BINARY_FLOAT | BINARY_DOUBLE ] ]
+SQL> select /*+ index(e) */ *
+  2  from   emp e
+  3  where (job = :job
+  4         or
+  5
+SQL> select /*+ index(e) */ *
+  2  from   emp e
+  3  where (job = 'CLERK'
+  4         or
+  5         ename = 'SMITH');
+
+
+Execution Plan
+----------------------------------------------------------
+Plan hash value: 4004826672
+
+--------------------------------------------------------------------------------
+------
+
+| Id  | Operation                   | Name   | Rows  | Bytes | Cost (%CPU)| Time
+     |
+
+--------------------------------------------------------------------------------
+------
+
+|   0 | SELECT STATEMENT            |        |     5 |   190 |     2   (0)| 00:0
+0:01 |
+
+|*  1 |  TABLE ACCESS BY INDEX ROWID| EMP    |     5 |   190 |     2   (0)| 00:0
+0:01 |
+
+|   2 |   INDEX FULL SCAN           | EMP_PK |    14 |       |     1   (0)| 00:0
+0:01 |
+
+--------------------------------------------------------------------------------
+------
+
+
+Predicate Information (identified by operation id):
+---------------------------------------------------
+
+   1 - filter("JOB"='CLERK' OR "ENAME"='SMITH')
+
+
+Statistics
+----------------------------------------------------------
+          1  recursive calls
+          0  db block gets
+          4  consistent gets
+          0  physical reads
+          0  redo size
+        939  bytes sent via SQL*Net to client
+        551  bytes received via SQL*Net from client
+          2  SQL*Net roundtrips to/from client
+          0  sorts (memory)
+          0  sorts (disk)
+          4  rows processed
+
+SQL> SELECT /*+ use_concat */ *
+  2  from   emp e
+  3  where (job = 'CLERK'
+  4         or
+  5         ename = 'SMITH');
+
+
+Execution Plan
+----------------------------------------------------------
+Plan hash value: 450641732
+
+--------------------------------------------------------------------------------
+--------------
+
+| Id  | Operation                    | Name          | Rows  | Bytes | Cost (%CP
+U)| Time     |
+
+--------------------------------------------------------------------------------
+--------------
+
+|   0 | SELECT STATEMENT             |               |     5 |   190 |     4   (
+0)| 00:00:01 |
+
+|   1 |  CONCATENATION               |               |       |       |
+  |          |
+
+|   2 |   TABLE ACCESS BY INDEX ROWID| EMP           |     1 |    38 |     2   (
+0)| 00:00:01 |
+
+|*  3 |    INDEX RANGE SCAN          | EMP_ENAME_IDX |     1 |       |     1   (
+0)| 00:00:01 |
+
+|*  4 |   TABLE ACCESS BY INDEX ROWID| EMP           |     4 |   152 |     2   (
+0)| 00:00:01 |
+
+|*  5 |    INDEX RANGE SCAN          | EMP_JOB_IDX   |     4 |       |     1   (
+0)| 00:00:01 |
+
+--------------------------------------------------------------------------------
+--------------
+
+
+Predicate Information (identified by operation id):
+---------------------------------------------------
+
+   3 - access("ENAME"='SMITH')
+   4 - filter(LNNVL("ENAME"='SMITH'))
+   5 - access("JOB"='CLERK')
+
+
+Statistics
+----------------------------------------------------------
+          1  recursive calls
+          0  db block gets
+          5  consistent gets
+          0  physical reads
+          0  redo size
+        939  bytes sent via SQL*Net to client
+        551  bytes received via SQL*Net from client
+          2  SQL*Net roundtrips to/from client
+          0  sorts (memory)
+          0  sorts (disk)
+          4  rows processed
+
+SQL>
